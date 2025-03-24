@@ -1265,8 +1265,9 @@ a.article-title:hover {
   margin-bottom: 0.5em;
 }
 .archive-article-header h1 {
-  font-size: 1.5em;
-  line-height: 1.2;
+  font-family: 'times new roman', serif;
+  font-size: 1.3em;
+  line-height: 1;
 }
 #readMore {
   text-align: right;
