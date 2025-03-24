@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Hexo category can&#39;t deploy fix</title>
+      <link href="/2025/03/24/Hexo-category-fix/"/>
+      <url>/2025/03/24/Hexo-category-fix/</url>
+      
+        <content type="html"><![CDATA[<div class="toc"><!-- toc --><ul><li><a href="#issues">Issues</a></li><li><a href="#solution">Solution</a></li><li><a href="#confession">Confession</a></li></ul><!-- tocstop --></div><h2><span id="issues">Issues</span><a href="#issues" class="header-anchor">#</a></h2><p>In the local host, the category function is doing pretty well. But after deployment, for the category page, the links for each category lead to 404 not found. </p><p><img src="/images/Screenshot 2025-03-24 at 4.43.21 PM.png" alt="Screenshot 2025-03-24 at 4.43.21 PM"></p><h2><span id="solution">Solution</span><a href="#solution" class="header-anchor">#</a></h2><p>The category tag can’t be capitalized, since the deployment process (don’t know where) change the uncapitalize every word and store them in the github repo.</p><p><img src="/images/Screenshot 2025-03-24 at 4.45.59 PM.png" alt="Screenshot 2025-03-24 at 4.45.59 PM"></p><h2><span id="confession">Confession</span><a href="#confession" class="header-anchor">#</a></h2><p>I spend too much time on this freaking problem /cry… Still, I can’t find the api which Hexo uses for the deployment (Or I just don’t want to read the whole node modulus)</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> debug </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Typora Guide</title>
       <link href="/2025/03/24/typora-guide/"/>
       <url>/2025/03/24/typora-guide/</url>
@@ -13,14 +38,14 @@
       
       <categories>
           
-          <category> Guide </category>
+          <category> guide </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> Markup </tag>
+            <tag> markup </tag>
             
         </tags>
       
@@ -38,14 +63,14 @@
       
       <categories>
           
-          <category> Guide </category>
+          <category> guide </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> Markup </tag>
+            <tag> markup </tag>
             
         </tags>
       
@@ -63,14 +88,14 @@
       
       <categories>
           
-          <category> Methodologies </category>
+          <category> methodologies </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> Web Development </tag>
+            <tag> web development </tag>
             
         </tags>
       

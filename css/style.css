@@ -1629,6 +1629,10 @@ pre .javascript .function {
   height: 180px;
   zoom: 1;
 }
+.tag-list-item {
+  height: 32px;
+  border-bottom-width: none;
+}
 .tag-list-link {
   text-decoration: none;
   color: #555;
