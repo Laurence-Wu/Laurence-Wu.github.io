@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Website_debug_methodology</title>
+      <link href="/2025/03/24/Website-debug-methodology/"/>
+      <url>/2025/03/24/Website-debug-methodology/</url>
+      
+        <content type="html"><![CDATA[<h1><span id="debugging-techniques-for-hexo-related-web-applications">Debugging techniques for Hexo / related web applications</span><a href="#debugging-techniques-for-hexo-related-web-applications" class="header-anchor">#</a></h1><h2><span id="basic-procedures">basic procedures</span><a href="#basic-procedures" class="header-anchor">#</a></h2><ol><li><p>Check the terminal to see the possible mistakes.</p></li><li><p>Check the console if there’s any mistakes / warnings / fails?</p></li><li><p>Careully observe the current web page following the rendering process:</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs mermaid">%%&#123;init: &#123;&#x27;theme&#x27;: &#x27;neutral&#x27;, &#x27;themeVariables&#x27;: &#123; &#x27;primaryColor&#x27;: &#x27;#E0F2F1&#x27;, &#x27;tertiaryColor&#x27;: &#x27;#B2DFDB&#x27;&#125;&#125;&#125;%%<br>flowchart TD<br>    subgraph Server[&quot;Server Side (Web Server)&quot;]<br>        direction TB<br>        S1[Receive HTTP Request] --&gt; S2[Process Request]<br>        S2 --&gt; S3[Generate HTML]<br>        S3 --&gt; S4[Fetch CSS/JS/Assets]<br>        S4 --&gt; S5[Send HTTP Response]<br>    end<br><br>    subgraph Client[&quot;Client Side (User&#x27;s Browser)&quot;]<br>        direction TB<br>        A[User Enters URL] --&gt; B[Send HTTP Request]<br>        B --&gt;|Request| Server<br>        Server --&gt;|Response| C[Receive HTML/CSS/JS]<br>        <br>        C --&gt; D[HTML Parsing]<br>        subgraph HTML_Processing[&quot;HTML Processing&quot;]<br>            D --&gt; E[Tokenization]<br>            E --&gt; F[DOM Tree Construction]<br>            F --&gt; G[DOM Node Creation]<br>        end<br><br>        C --&gt; H[CSS/JS Download]<br>        subgraph CSS_Processing[&quot;CSS Processing&quot;]<br>            H --&gt; I[CSSOM Construction]<br>            I --&gt; J[Style Calculation]<br>        end<br><br>        subgraph JS_Processing[&quot;JavaScript Processing&quot;]<br>            H --&gt; K[JS Execution]<br>            K --&gt; L&#123;DOM/CSSOM Modified?&#125;<br>            L --&gt;|Yes| D<br>            L --&gt;|No| M[Continue]<br>        end<br><br>        G --&gt; N[DOM Ready]<br>        J --&gt; O[CSSOM Ready]<br>        N &amp; O --&gt; P[Render Tree]<br><br>        subgraph Rendering[&quot;Rendering Pipeline&quot;]<br>            P --&gt; Q[Layout/Reflow]<br>            Q --&gt; R[Layer Compositing]<br>            R --&gt; S[Paint]<br>            S --&gt; T[GPU Rasterization]<br>        end<br>    end<br><br>    T --&gt; U[Display Pixels on Screen]<br><br>    style Server fill:#C8E6C9,color:#000<br>    style Client fill:#B3E5FC,color:#000<br>    style U fill:#81D4FA,stroke:#01579B<br></code></pre></td></tr></table></figure><p><strong><em>Identify</em> the process which possibly goes wrong and then check the corresponding function</strong>. </p><p>Note! This step makes sure the rendering of the virtual server on the local machine is working well. If the issue persist, we have to dig into the deployment process.</p></li></ol><ol><li><p>Check the deployment process files (The most complicated): </p><p>```mermaid<br>flowchart TD</p><pre><code>subgraph Local[&quot;Local Development Environment&quot;]    direction TB    A[Build Optimized Bundle&lt;br&gt;(npm run build / vite build)] --&gt; B[Test Locally&lt;br&gt;(Unit/E2E Tests)]    B --&gt; C[Commit Code &amp; Push to Git]endsubgraph CICD[&quot;CI/CD Pipeline&quot;]    direction TB    D[Trigger Pipeline&lt;br&gt;(GitHub Actions/Jenkins)] --&gt; E[Run Automated Tests]    E --&gt; F[Build Docker Image&lt;br&gt;or Production Artifacts]    F --&gt; G[Deploy to Production Server]endsubgraph Production[&quot;Production Server&quot;]    direction TB    H[Provision Resources&lt;br&gt;(AWS EC2/Heroku/Docker)] --&gt; I[Install Dependencies&lt;br&gt;(npm install/pip install)]    I --&gt; J[Configure Environment&lt;br&gt;(.env files/secrets)]    J --&gt; K[Deploy Codebase&lt;br&gt;(Git pull/SCP/RSYNC)]    K --&gt; L[Start Services&lt;br&gt;(Nginx/PM2/Gunicorn)]endsubgraph ThirdParty[&quot;Third-Party Services&quot;]    direction TB    M[Configure DNS&lt;br&gt;(Cloudflare/Route 53)] --&gt; N[Enable CDN&lt;br&gt;(Cloudfront/Akamai)]    N --&gt; O[Set Up Monitoring&lt;br&gt;(Sentry/New Relic)]endC --&gt; DG --&gt; HL --&gt; MO --&gt; P[Users Access Site via Domain]P --&gt; Q[Traffic Routed Through CDN]style Local fill:#C8E6C9,color:#000style CICD fill:#B3E5FC,color:#000style Production fill:#FFE0B2,color:#000style ThirdParty fill:#D1C4E9,color:#000style P fill:#81D4FA,stroke:#01579B</code></pre></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> methodologies </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Web Development </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>The Complete Markdown Tutorial</title>
       <link href="/2025/03/22/Markdowntutorial/"/>
       <url>/2025/03/22/Markdowntutorial/</url>
