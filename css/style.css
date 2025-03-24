@@ -1604,11 +1604,11 @@ pre .javascript .function {
   color: #258fb8;
 }
 .tag-list {
-  -webkit-box-align: left;
-  -moz-box-align: left;
-  -ms-flex-align: left;
-  -webkit-align-items: left;
-  align-items: left;
+  -webkit-box-align: start;
+  -moz-box-align: start;
+  -ms-flex-align: start;
+  -webkit-align-items: flex-start;
+  align-items: flex-start;
   display: -webkit-box;
   display: -moz-box;
   display: -webkit-flex;
@@ -1626,12 +1626,17 @@ pre .javascript .function {
   -webkit-justify-content: left;
   justify-content: left;
   overflow: auto;
-  height: 180px;
   zoom: 1;
 }
 .tag-list-item {
-  height: 32px;
+  list-style-type: none;
+  -webkit-box-align: start;
+  -moz-box-align: start;
+  -ms-flex-align: start;
+  -webkit-align-items: flex-start;
+  align-items: flex-start;
   border-bottom-width: none;
+  height: 35px;
 }
 .tag-list-link {
   text-decoration: none;
