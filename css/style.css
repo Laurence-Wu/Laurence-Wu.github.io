@@ -940,7 +940,7 @@ a.article-title:hover {
   text-shadow: 0 1px #1e7293;
 }
 .article-footer {
-  font-size: 0.85em;
+  font-size: 1.3em;
   line-height: 1.6em;
   border-top: 1px solid #ddd;
   padding-top: 1.6em;
@@ -1268,6 +1268,9 @@ a.article-title:hover {
   font-size: 1.5em;
   line-height: 1.2;
 }
+#readMore {
+  text-align: right;
+}
 .archive-article-title {
   text-align: center;
   margin-left: 0.5em;
@@ -1346,7 +1349,10 @@ a.article-title:hover {
   color: #ddd;
 }
 #footer {
-  background: #262a30;
+  background: -webkit-linear-gradient(left, #ff5f6d, #ffc371);
+  background: -moz-linear-gradient(left, #ff5f6d, #ffc371);
+  background: -ms-linear-gradient(left, #ff5f6d, #ffc371);
+  background: linear-gradient(to right, #ff5f6d, #ffc371);
   padding: 50px 0;
   border-top: 1px solid #ddd;
   color: #999;
@@ -1359,8 +1365,9 @@ a.article-title:hover {
   text-decoration: underline;
 }
 #footer-info {
+  color: #000;
   line-height: 1.6em;
-  font-size: 0.85em;
+  font-size: 1em;
   text-align: center;
 }
 .article-entry pre,
@@ -1618,6 +1625,7 @@ pre .javascript .function {
   -webkit-justify-content: left;
   justify-content: left;
   overflow: auto;
+  height: 100px;
   zoom: 1;
 }
 .tag-list-link {
@@ -1631,7 +1639,6 @@ pre .javascript .function {
   line-height: 1.6em;
   float: left;
   padding: 1px 15px;
-  margin-right: -5px;
   border-radius: 20px;
   border: 1px dashed #555;
 }
@@ -1694,6 +1701,31 @@ pre .javascript .function {
 .widget dl dl {
   margin-left: 15px;
   list-style: disc;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+.form-group input,
+.form-group textarea {
+  margin-left: 10px;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+}
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #ff7f50;
+  outline: none;
+  -webkit-box-shadow: 0 0 8px rgba(255,127,80,0.6);
+  box-shadow: 0 0 8px rgba(255,127,80,0.6);
+  -webkit-border-image: -webkit-linear-gradient(left, #ff7f50, #ff4500) 1;
+  -moz-border-image: -moz-linear-gradient(left, #ff7f50, #ff4500) 1;
+  border-image: linear-gradient(to right, #ff7f50, #ff4500) 1;
+  background-color: rgba(255,127,80,0.1);
 }
 .widget {
   line-height: 1.6em;
