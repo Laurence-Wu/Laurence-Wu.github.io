@@ -1702,6 +1702,12 @@ pre .javascript .function {
   margin-left: 15px;
   list-style: disc;
 }
+.form-group {
+  background-image: -webkit-linear-gradient(left, #ffa07a, #ff6347);
+  background-image: -moz-linear-gradient(left, #ffa07a, #ff6347);
+  background-image: -ms-linear-gradient(left, #ffa07a, #ff6347);
+  background-image: linear-gradient(to right, #ffa07a, #ff6347);
+}
 .form-group label {
   display: block;
   margin-bottom: 5px;
@@ -1709,12 +1715,14 @@ pre .javascript .function {
 }
 .form-group input,
 .form-group textarea {
+  background-image: none;
   margin-left: 10px;
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 6px;
   font-size: 1em;
+  font-weight: bold;
 }
 .form-group input:focus,
 .form-group textarea:focus {
