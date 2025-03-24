@@ -78,10 +78,10 @@
 <!-- toc -->
 <ul>
 <li><a href="#debugging-techniques-for-hexo-related-web-applications">Debugging techniques for Hexo / related web applications</a><ul>
-<li><a href="#basic-procedures">basic procedures</a><ul>
+<li><a href="#basic-procedures">Basic procedures</a><ul>
 <li><a href="#1-check-the-terminal-to-see-the-possible-mistakes">1. Check the terminal to see the possible mistakes.</a></li>
-<li><a href="#2-check-the-console-if-there-s-any-mistakes-warnings-fails">2. Check the console if there’s any mistakes / warnings / fails?</a></li>
-<li><a href="#3-careully-observe-the-current-web-page-following-the-rendering-process">3. Careully observe the current web page following the rendering process:</a></li>
+<li><a href="#2-check-the-console-for-any-errors-warnings-or-failures">2. Check the console for any errors, warnings, or failures.</a></li>
+<li><a href="#3-carefully-observe-the-current-web-page-following-the-rendering-process">3. Carefully observe the current web page following the rendering process:</a></li>
 </ul>
 </li>
 </ul>
@@ -90,7 +90,7 @@
 <!-- tocstop -->
 </div>
 
-<h1><span id="debugging-techniques-for-hexo-related-web-applications">Debugging techniques for Hexo / related web applications</span><a href="#debugging-techniques-for-hexo-related-web-applications" class="header-anchor">#</a></h1><h2><span id="basic-procedures">basic procedures</span><a href="#basic-procedures" class="header-anchor">#</a></h2><h3><span id="1-check-the-terminal-to-see-the-possible-mistakes">1. Check the terminal to see the possible mistakes.</span><a href="#1-check-the-terminal-to-see-the-possible-mistakes" class="header-anchor">#</a></h3><h3><span id="2-check-the-console-if-there-s-any-mistakes-warnings-fails">2. Check the console if there’s any mistakes / warnings / fails?</span><a href="#2-check-the-console-if-there-s-any-mistakes-warnings-fails" class="header-anchor">#</a></h3><h3><span id="3-careully-observe-the-current-web-page-following-the-rendering-process">3. Careully observe the current web page following the rendering process:</span><a href="#3-careully-observe-the-current-web-page-following-the-rendering-process" class="header-anchor">#</a></h3>   <pre class="mermaid">   %%{init: {'theme': 'neutral'}}%%
+<h1><span id="debugging-techniques-for-hexo-related-web-applications">Debugging techniques for Hexo / related web applications</span><a href="#debugging-techniques-for-hexo-related-web-applications" class="header-anchor">#</a></h1><h2><span id="basic-procedures">Basic procedures</span><a href="#basic-procedures" class="header-anchor">#</a></h2><h3><span id="1-check-the-terminal-to-see-the-possible-mistakes">1. Check the terminal to see the possible mistakes.</span><a href="#1-check-the-terminal-to-see-the-possible-mistakes" class="header-anchor">#</a></h3><h3><span id="2-check-the-console-for-any-errors-warnings-or-failures">2. Check the console for any errors, warnings, or failures.</span><a href="#2-check-the-console-for-any-errors-warnings-or-failures" class="header-anchor">#</a></h3><h3><span id="3-carefully-observe-the-current-web-page-following-the-rendering-process">3. Carefully observe the current web page following the rendering process:</span><a href="#3-carefully-observe-the-current-web-page-following-the-rendering-process" class="header-anchor">#</a></h3>   <pre class="mermaid">   %%{init: {'theme': 'neutral'}}%%
    graph TD
        %% Server Side
        S1[Receive HTTP Request] --> S2[Process Request]
@@ -154,7 +154,7 @@
        style U fill:#81D4FA,stroke:#01579B</pre>
 
 <p>   <strong><em>Identify</em> the process which possibly goes wrong and then check the corresponding function</strong>. </p>
-<p>   Note! This step makes sure the rendering of the virtual server on the local machine is working well. If the issue persist, we have to dig into the deployment process.</p>
+<p>   Note! This step makes sure the rendering of the virtual server on the local machine is working well. If the issue persists, we have to dig into the deployment process.</p>
 <ol>
 <li><p>Check the deployment process files: </p>
 <pre class="mermaid">   %%{init: {'theme': 'neutral'}}%%
@@ -171,7 +171,7 @@ graph TD
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://laurence-wu.github.io/2025/03/24/Website-debug-methodology/" data-id="cm8nkvqws00016v4r6ja6asl4" data-title="Website Debug Methodology" class="article-share-link">Share</a>
+      <a data-url="https://laurence-wu.github.io/2025/03/24/Website-debug-methodology/" data-id="cm8nkyhec0007bo4rgbbw02si" data-title="Website Debug Methodology" class="article-share-link">Share</a>
       
       
       
