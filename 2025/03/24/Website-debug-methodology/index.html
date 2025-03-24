@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Website_debug_methodology | Laurence&#39;s Blog</title>
+  <title>Website debug methodology | Laurence&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   
     <link rel="shortcut icon" href="/favicon.png">
@@ -65,7 +65,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      Website_debug_methodology
+      Website debug methodology
     </h1>
   
 
@@ -73,65 +73,105 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1><span id="debugging-techniques-for-hexo-related-web-applications">Debugging techniques for Hexo / related web applications</span><a href="#debugging-techniques-for-hexo-related-web-applications" class="header-anchor">#</a></h1><h2><span id="basic-procedures">basic procedures</span><a href="#basic-procedures" class="header-anchor">#</a></h2><ol>
-<li><p>Check the terminal to see the possible mistakes.</p>
+        <div class="toc">
+
+<!-- toc -->
+<ul>
+<li><a href="#debugging-techniques-for-hexo-related-web-applications">Debugging techniques for Hexo / related web applications</a><ul>
+<li><a href="#basic-procedures">basic procedures</a><ul>
+<li><a href="#1-check-the-terminal-to-see-the-possible-mistakes">1. Check the terminal to see the possible mistakes.</a></li>
+<li><a href="#2-check-the-console-if-there-s-any-mistakes-warnings-fails">2. Check the console if there’s any mistakes / warnings / fails?</a></li>
+<li><a href="#3-careully-observe-the-current-web-page-following-the-rendering-process">3. Careully observe the current web page following the rendering process:</a></li>
+</ul>
 </li>
-<li><p>Check the console if there’s any mistakes / warnings / fails?</p>
+</ul>
 </li>
-<li><p>Careully observe the current web page following the rendering process:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs mermaid">%%&#123;init: &#123;&#x27;theme&#x27;: &#x27;neutral&#x27;, &#x27;themeVariables&#x27;: &#123; &#x27;primaryColor&#x27;: &#x27;#E0F2F1&#x27;, &#x27;tertiaryColor&#x27;: &#x27;#B2DFDB&#x27;&#125;&#125;&#125;%%<br>flowchart TD<br>    subgraph Server[&quot;Server Side (Web Server)&quot;]<br>        direction TB<br>        S1[Receive HTTP Request] --&gt; S2[Process Request]<br>        S2 --&gt; S3[Generate HTML]<br>        S3 --&gt; S4[Fetch CSS/JS/Assets]<br>        S4 --&gt; S5[Send HTTP Response]<br>    end<br><br>    subgraph Client[&quot;Client Side (User&#x27;s Browser)&quot;]<br>        direction TB<br>        A[User Enters URL] --&gt; B[Send HTTP Request]<br>        B --&gt;|Request| Server<br>        Server --&gt;|Response| C[Receive HTML/CSS/JS]<br>        <br>        C --&gt; D[HTML Parsing]<br>        subgraph HTML_Processing[&quot;HTML Processing&quot;]<br>            D --&gt; E[Tokenization]<br>            E --&gt; F[DOM Tree Construction]<br>            F --&gt; G[DOM Node Creation]<br>        end<br><br>        C --&gt; H[CSS/JS Download]<br>        subgraph CSS_Processing[&quot;CSS Processing&quot;]<br>            H --&gt; I[CSSOM Construction]<br>            I --&gt; J[Style Calculation]<br>        end<br><br>        subgraph JS_Processing[&quot;JavaScript Processing&quot;]<br>            H --&gt; K[JS Execution]<br>            K --&gt; L&#123;DOM/CSSOM Modified?&#125;<br>            L --&gt;|Yes| D<br>            L --&gt;|No| M[Continue]<br>        end<br><br>        G --&gt; N[DOM Ready]<br>        J --&gt; O[CSSOM Ready]<br>        N &amp; O --&gt; P[Render Tree]<br><br>        subgraph Rendering[&quot;Rendering Pipeline&quot;]<br>            P --&gt; Q[Layout/Reflow]<br>            Q --&gt; R[Layer Compositing]<br>            R --&gt; S[Paint]<br>            S --&gt; T[GPU Rasterization]<br>        end<br>    end<br><br>    T --&gt; U[Display Pixels on Screen]<br><br>    style Server fill:#C8E6C9,color:#000<br>    style Client fill:#B3E5FC,color:#000<br>    style U fill:#81D4FA,stroke:#01579B<br></code></pre></td></tr></table></figure>
-<p><strong><em>Identify</em> the process which possibly goes wrong and then check the corresponding function</strong>. </p>
-<p>Note! This step makes sure the rendering of the virtual server on the local machine is working well. If the issue persist, we have to dig into the deployment process.</p>
-</li>
-</ol>
+</ul>
+<!-- tocstop -->
+</div>
+
+<h1><span id="debugging-techniques-for-hexo-related-web-applications">Debugging techniques for Hexo / related web applications</span><a href="#debugging-techniques-for-hexo-related-web-applications" class="header-anchor">#</a></h1><h2><span id="basic-procedures">basic procedures</span><a href="#basic-procedures" class="header-anchor">#</a></h2><h3><span id="1-check-the-terminal-to-see-the-possible-mistakes">1. Check the terminal to see the possible mistakes.</span><a href="#1-check-the-terminal-to-see-the-possible-mistakes" class="header-anchor">#</a></h3><h3><span id="2-check-the-console-if-there-s-any-mistakes-warnings-fails">2. Check the console if there’s any mistakes / warnings / fails?</span><a href="#2-check-the-console-if-there-s-any-mistakes-warnings-fails" class="header-anchor">#</a></h3><h3><span id="3-careully-observe-the-current-web-page-following-the-rendering-process">3. Careully observe the current web page following the rendering process:</span><a href="#3-careully-observe-the-current-web-page-following-the-rendering-process" class="header-anchor">#</a></h3>   <pre class="mermaid">   %%{init: {'theme': 'neutral'}}%%
+   graph TD
+       %% Server Side
+       S1[Receive HTTP Request] --> S2[Process Request]
+       S2 --> S3[Generate HTML]
+       S3 --> S4[Fetch CSS/JS/Assets]
+       S4 --> S5[Send HTTP Response]
+       style S1 fill:#C8E6C9
+       style S2 fill:#C8E6C9
+       style S3 fill:#C8E6C9
+       style S4 fill:#C8E6C9
+       style S5 fill:#C8E6C9
+
+       %% Client Side
+       A[User Enters URL] --> B[Send HTTP Request]
+       B --> S1
+       S5 --> C[Receive HTML/CSS/JS]
+       C --> D[HTML Parsing]
+       D --> E[Tokenization]
+       E --> F[DOM Tree Construction]
+       F --> G[DOM Node Creation]
+       G --> N[DOM Ready]
+
+       C --> H[CSS/JS Download]
+       H --> I[CSSOM Construction]
+       I --> J[Style Calculation]
+       J --> O[CSSOM Ready]
+
+       H --> K[JS Execution]
+       K --> L{DOM/CSSOM Modified?}
+       L -->|Yes| D
+       L -->|No| M[Continue]
+
+       N --> P[Render Tree]
+       O --> P
+       P --> Q[Layout/Reflow]
+       Q --> R[Layer Compositing]
+       R --> S[Paint]
+       S --> T[GPU Rasterization]
+       T --> U[Display Pixels on Screen]
+
+       style A fill:#B3E5FC
+       style B fill:#B3E5FC
+       style C fill:#B3E5FC
+       style D fill:#B3E5FC
+       style E fill:#B3E5FC
+       style F fill:#B3E5FC
+       style G fill:#B3E5FC
+       style H fill:#B3E5FC
+       style I fill:#B3E5FC
+       style J fill:#B3E5FC
+       style K fill:#B3E5FC
+       style L fill:#B3E5FC
+       style M fill:#B3E5FC
+       style N fill:#B3E5FC
+       style O fill:#B3E5FC
+       style P fill:#B3E5FC
+       style Q fill:#B3E5FC
+       style R fill:#B3E5FC
+       style S fill:#B3E5FC
+       style T fill:#B3E5FC
+       style U fill:#81D4FA,stroke:#01579B</pre>
+
+<p>   <strong><em>Identify</em> the process which possibly goes wrong and then check the corresponding function</strong>. </p>
+<p>   Note! This step makes sure the rendering of the virtual server on the local machine is working well. If the issue persist, we have to dig into the deployment process.</p>
 <ol>
-<li><p>Check the deployment process files (The most complicated): </p>
-<p>```mermaid<br>flowchart TD</p>
-<pre><code>subgraph Local[&quot;Local Development Environment&quot;]
-    direction TB
-    A[Build Optimized Bundle&lt;br&gt;(npm run build / vite build)] --&gt; B[Test Locally&lt;br&gt;(Unit/E2E Tests)]
-    B --&gt; C[Commit Code &amp; Push to Git]
-end
+<li><p>Check the deployment process files: </p>
+<pre class="mermaid">   %%{init: {'theme': 'neutral'}}%%
+graph TD
+    A[Project Size] -->B[Snowpack + esbuild]
+    A --> C[Snowpack + Webpack Plugin]
+    C --> D[Enable Code Splitting]
+    D --> E[Configure Caching]
+    E --> F[CI/CD Integration]</pre>
 
-subgraph CICD[&quot;CI/CD Pipeline&quot;]
-    direction TB
-    D[Trigger Pipeline&lt;br&gt;(GitHub Actions/Jenkins)] --&gt; E[Run Automated Tests]
-    E --&gt; F[Build Docker Image&lt;br&gt;or Production Artifacts]
-    F --&gt; G[Deploy to Production Server]
-end
-
-subgraph Production[&quot;Production Server&quot;]
-    direction TB
-    H[Provision Resources&lt;br&gt;(AWS EC2/Heroku/Docker)] --&gt; I[Install Dependencies&lt;br&gt;(npm install/pip install)]
-    I --&gt; J[Configure Environment&lt;br&gt;(.env files/secrets)]
-    J --&gt; K[Deploy Codebase&lt;br&gt;(Git pull/SCP/RSYNC)]
-    K --&gt; L[Start Services&lt;br&gt;(Nginx/PM2/Gunicorn)]
-end
-
-subgraph ThirdParty[&quot;Third-Party Services&quot;]
-    direction TB
-    M[Configure DNS&lt;br&gt;(Cloudflare/Route 53)] --&gt; N[Enable CDN&lt;br&gt;(Cloudfront/Akamai)]
-    N --&gt; O[Set Up Monitoring&lt;br&gt;(Sentry/New Relic)]
-end
-
-C --&gt; D
-G --&gt; H
-L --&gt; M
-O --&gt; P[Users Access Site via Domain]
-P --&gt; Q[Traffic Routed Through CDN]
-
-style Local fill:#C8E6C9,color:#000
-style CICD fill:#B3E5FC,color:#000
-style Production fill:#FFE0B2,color:#000
-style ThirdParty fill:#D1C4E9,color:#000
-style P fill:#81D4FA,stroke:#01579B
-</code></pre></li>
+</li>
 </ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://laurence-wu.github.io/2025/03/24/Website-debug-methodology/" data-id="cm8mn0ti30000n04r7z1448cy" data-title="Website_debug_methodology" class="article-share-link">Share</a>
+      <a data-url="https://laurence-wu.github.io/2025/03/24/Website-debug-methodology/" data-id="cm8mp3bgz0003a04r3l7b9u5p" data-title="Website debug methodology" class="article-share-link">Share</a>
       
       
       
@@ -144,7 +184,7 @@ style P fill:#81D4FA,stroke:#01579B
 <nav id="article-nav">
   
   
-    <a href="/2025/03/22/Markdowntutorial/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2025/03/22/Markdown-tutorial/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
       <div class="article-nav-title">The Complete Markdown Tutorial</div>
     </a>
@@ -195,11 +235,11 @@ style P fill:#81D4FA,stroke:#01579B
       <ul>
         
           <li>
-            <a href="/2025/03/24/Website-debug-methodology/">Website_debug_methodology</a>
+            <a href="/2025/03/24/Website-debug-methodology/">Website debug methodology</a>
           </li>
         
           <li>
-            <a href="/2025/03/22/Markdowntutorial/">The Complete Markdown Tutorial</a>
+            <a href="/2025/03/22/Markdown-tutorial/">The Complete Markdown Tutorial</a>
           </li>
         
       </ul>
@@ -271,6 +311,14 @@ style P fill:#81D4FA,stroke:#01579B
 <script src="/js/script.js"></script>
 
 
+
+    <script src='https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js'></script>
+    <script>
+      if (window.mermaid) {
+        mermaid.initialize({theme: 'forest'});
+      }
+    </script>
+  
 
   </div>
 </body>
