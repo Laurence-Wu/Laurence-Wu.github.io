@@ -69,18 +69,25 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1><span id="introduction-to-signal-integrity">Introduction to Signal Integrity</span><a href="#introduction-to-signal-integrity" class="header-anchor">#</a></h1><h2><span id="signal-integrity-definition">Signal Integrity Definition</span><a href="#signal-integrity-definition" class="header-anchor">#</a></h2><h3><span id="three-main-considerations">three main considerations:</span><a href="#three-main-considerations" class="header-anchor">#</a></h3><p>Timing / Noise / Electromagnetic interference (Consider Singal integrity when the clock reaches approximately 100Mhz)</p>
-<h3><span id="four-families-of-signal-integrity-problem">four families of signal Integrity Problem</span><a href="#four-families-of-signal-integrity-problem" class="header-anchor">#</a></h3><p><strong>1.</strong> Signal quality of one net, including losses on the line</p>
+        <p>&lt;!— toc — &gt;</p>
+<h1><span id="introduction-to-signal-integrity">Introduction to Signal Integrity</span><a href="#introduction-to-signal-integrity" class="header-anchor">#</a></h1><h2><span id="signal-integrity-definition">Signal Integrity Definition</span><a href="#signal-integrity-definition" class="header-anchor">#</a></h2><h3><span id="three-main-considerations">Three main considerations:</span><a href="#three-main-considerations" class="header-anchor">#</a></h3><ul>
+<li><p>Timing </p>
+</li>
+<li><p>Noise</p>
+</li>
+<li><p>Electromagnetic interference (Consider Singal integrity when the clock reaches approximately 100Mhz)</p>
+</li>
+</ul>
+<h3><span id="four-families-of-signal-integrity-problem">Four families of signal Integrity Problem</span><a href="#four-families-of-signal-integrity-problem" class="header-anchor">#</a></h3><p><strong>1.</strong> Signal quality of one net, including losses on the line</p>
 <p><strong>2.</strong> Cross-talk between two or more nets, including ground and power balance</p>
 <p><strong>3.</strong> Rail collapse in the power and ground distribution</p>
 <p><strong>4.</strong> Electromagnetic interference and radiation from the entire system</p>
-<p><strong>Impedance and Medium? It’s all about reflection, Are there any connections?</strong></p>
-<p>Definition of a Net: A net comprises all the metal connected in a system.</p>
-<h4><span id="three-factors-to-signal-quality-with-one-net">Three factors to Signal quality with one Net</span><a href="#three-factors-to-signal-quality-with-one-net" class="header-anchor">#</a></h4><ul>
+<p><em>Definition of a Net: A net comprises all the metal connected in a system.</em></p>
+<h3><span id="three-factors-to-signal-quality-with-one-net">Three factors to Signal quality with one Net</span><a href="#three-factors-to-signal-quality-with-one-net" class="header-anchor">#</a></h3><ul>
 <li>1 and 2: Frequency-dependent losses in the line from the conductor and the dielectric cause higher-frequency signal components to be attenuated more than the lower-frequency components. The end result is an increase in the rise time of the signal as it propagates. When this rise time degradation approaches the period of a single bit, the digital information will be distorted.  This effect is called <strong>inter-symbol interference (ISI)</strong></li>
 <li>Skew in the single net (time delay between two or more nets can be adjusted by matching the length of two nets)</li>
 </ul>
-<h4><span id="two-situations-that-cross-talk-happens">Two situations that Cross-talk happens</span><a href="#two-situations-that-cross-talk-happens" class="header-anchor">#</a></h4><ul>
+<h3><span id="two-situations-that-cross-talk-happens">Two situations that Cross-talk happens</span><a href="#two-situations-that-cross-talk-happens" class="header-anchor">#</a></h3><ul>
 <li>When the interconnects are uniform transmission lines: Anything that changes the return path from a wide uniform plane will increase the amount of coupled noise between two transmission lines.</li>
 <li>When they are not uniform transmission lines:</li>
 </ul>
@@ -115,7 +122,7 @@
       
     </div>
     <!-- <footer class="article-footer">
-      <a data-url="https://laurence-wu.github.io/2025/03/24/Signal-Integrity/" data-id="cm8osll8l0006he4r69105wcv" data-title="Signal integrity and power Notes" class="article-share-link">Share</a>
+      <a data-url="https://laurence-wu.github.io/2025/03/24/Signal-Integrity/" data-id="cm8osqjtw0003y84r6mgac4yf" data-title="Signal integrity and power Notes" class="article-share-link">Share</a>
       
       
       
