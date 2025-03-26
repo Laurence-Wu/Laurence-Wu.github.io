@@ -4,6 +4,52 @@
   
     
     <entry>
+      <title>How Does Flyback Diode Work</title>
+      <link href="/2025/03/26/How-does-flyback-diode-work/"/>
+      <url>/2025/03/26/How-does-flyback-diode-work/</url>
+      
+        <content type="html"><![CDATA[<h1><span id>#</span><a href="#" class="header-anchor">#</a></h1>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> guide </tag>
+            
+            <tag> experiments </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>STM32MP157 guide</title>
+      <link href="/2025/03/25/STM32MP157-guide/"/>
+      <url>/2025/03/25/STM32MP157-guide/</url>
+      
+        <content type="html"><![CDATA[<h1><span id="guide-to-stm32mp157-routing">Guide to STM32MP157 Routing</span><a href="#guide-to-stm32mp157-routing" class="header-anchor">#</a></h1>]]></content>
+      
+      
+      <categories>
+          
+          <category> ic design </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> stm </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>A guide to Cmake</title>
       <link href="/2025/03/25/Cmake-guide-md/"/>
       <url>/2025/03/25/Cmake-guide-md/</url>
@@ -23,11 +69,11 @@
     
     
     <entry>
-      <title>Signal integrity and power Notes</title>
+      <title>Signal Integrity Notes</title>
       <link href="/2025/03/24/Signal-Integrity/"/>
       <url>/2025/03/24/Signal-Integrity/</url>
       
-        <content type="html"><![CDATA[<p>&lt;!— toc — &gt;</p><h1><span id="introduction-to-signal-integrity">Introduction to Signal Integrity</span><a href="#introduction-to-signal-integrity" class="header-anchor">#</a></h1><h2><span id="signal-integrity-definition">Signal Integrity Definition</span><a href="#signal-integrity-definition" class="header-anchor">#</a></h2><h3><span id="three-main-considerations">Three main considerations:</span><a href="#three-main-considerations" class="header-anchor">#</a></h3><ul><li><p>Timing </p></li><li><p>Noise</p></li><li><p>Electromagnetic interference (Consider Singal integrity when the clock reaches approximately 100Mhz)</p></li></ul><h3><span id="four-families-of-signal-integrity-problem">Four families of signal Integrity Problem</span><a href="#four-families-of-signal-integrity-problem" class="header-anchor">#</a></h3><p><strong>1.</strong> Signal quality of one net, including losses on the line</p><p><strong>2.</strong> Cross-talk between two or more nets, including ground and power balance</p><p><strong>3.</strong> Rail collapse in the power and ground distribution</p><p><strong>4.</strong> Electromagnetic interference and radiation from the entire system</p><p><em>Definition of a Net: A net comprises all the metal connected in a system.</em></p><h3><span id="three-factors-to-signal-quality-with-one-net">Three factors to Signal quality with one Net</span><a href="#three-factors-to-signal-quality-with-one-net" class="header-anchor">#</a></h3><ul><li>1 and 2: Frequency-dependent losses in the line from the conductor and the dielectric cause higher-frequency signal components to be attenuated more than the lower-frequency components. The end result is an increase in the rise time of the signal as it propagates. When this rise time degradation approaches the period of a single bit, the digital information will be distorted.  This effect is called <strong>inter-symbol interference (ISI)</strong></li><li>Skew in the single net (time delay between two or more nets can be adjusted by matching the length of two nets)</li></ul><h3><span id="two-situations-that-cross-talk-happens">Two situations that Cross-talk happens</span><a href="#two-situations-that-cross-talk-happens" class="header-anchor">#</a></h3><ul><li>When the interconnects are uniform transmission lines: Anything that changes the return path from a wide uniform plane will increase the amount of coupled noise between two transmission lines.</li><li>When they are not uniform transmission lines:</li></ul><h2><span id="routing-techniques">Routing Techniques</span><a href="#routing-techniques" class="header-anchor">#</a></h2><h3><span id="three-basic-aspects-of-traces-to-consider">Three basic aspects of traces to consider :</span><a href="#three-basic-aspects-of-traces-to-consider" class="header-anchor">#</a></h3><ol><li><p>Trace width / cross section: wider or narrower for impedence matching.</p></li><li><p>Trace length: </p><ul><li><p>Length match for phase control (differential pairs, PS ground plane underneath should uninterrupted)</p></li><li><p>bigger loop area for less induced currents interference.</p></li></ul></li><li><p>Trace distribution: concentrated on one region for less EMI.</p><ul><li>Seperate digital and analog components part (seperate grounding), sometimes called split ground.</li><li>High-Speed components should be placed near the ground plane / away from the board edges.</li></ul></li></ol><h3><span id="four-basic-techniques-for-gnding-and-vias-placement">Four basic techniques for GNDing and vias placement :</span><a href="#four-basic-techniques-for-gnding-and-vias-placement" class="header-anchor">#</a></h3><ol><li>Star grounding topology to prevent ground loops.</li><li>Power-Ground Couping </li><li>Shielding using metal shield or guard traces arround sensitive components</li></ol><h3><span id="practical-techniques-for-gounding">Practical techniques for Gounding</span><a href="#practical-techniques-for-gounding" class="header-anchor">#</a></h3><ul><li><strong>Grounding Near Connectors:</strong> Place ground ports adjacent to I/O connectors to provide a direct return path, minimizing loop area.</li><li><strong>Ground Pours:</strong> Use in unused board areas, connected via vias to prevent antenna effects from floating metal.</li></ul>]]></content>
+        <content type="html"><![CDATA[<div class="toc"><!-- toc --><ul><li><a href="#introduction-to-signal-integrity">Introduction to Signal Integrity</a><ul><li><a href="#signal-integrity-definition">Signal Integrity Definition</a><ul><li><a href="#three-main-considerations">Three main considerations:</a></li><li><a href="#four-families-of-signal-integrity-problem">Four families of signal Integrity Problem</a></li><li><a href="#three-factors-to-signal-quality-with-one-net">Three factors to Signal quality with one Net</a></li><li><a href="#two-situations-that-cross-talk-happens">Two situations that Cross-talk happens</a></li></ul></li><li><a href="#routing-techniques">Routing Techniques</a><ul><li><a href="#three-basic-aspects-of-traces-to-consider">Three basic aspects of traces to consider :</a></li><li><a href="#four-basic-techniques-for-gnding-and-vias-placement">Four basic techniques for GNDing and vias placement :</a></li><li><a href="#practical-techniques-for-gounding">Practical techniques for Gounding</a></li></ul></li></ul></li></ul><!-- tocstop --></div><h1><span id="introduction-to-signal-integrity">Introduction to Signal Integrity</span><a href="#introduction-to-signal-integrity" class="header-anchor">#</a></h1><h2><span id="signal-integrity-definition">Signal Integrity Definition</span><a href="#signal-integrity-definition" class="header-anchor">#</a></h2><h3><span id="three-main-considerations">Three main considerations:</span><a href="#three-main-considerations" class="header-anchor">#</a></h3><ul><li><p>Timing </p></li><li><p>Noise</p></li><li><p>Electromagnetic interference (Consider Singal integrity when the clock reaches approximately 100Mhz)</p></li></ul><h3><span id="four-families-of-signal-integrity-problem">Four families of signal Integrity Problem</span><a href="#four-families-of-signal-integrity-problem" class="header-anchor">#</a></h3><p><strong>1.</strong> Signal quality of one net, including losses on the line</p><p><strong>2.</strong> Cross-talk between two or more nets, including ground and power balance</p><p><strong>3.</strong> Rail collapse in the power and ground distribution</p><p><strong>4.</strong> Electromagnetic interference and radiation from the entire system</p><p><em>Definition of a Net: A net comprises all the metal connected in a system.</em></p><h3><span id="three-factors-to-signal-quality-with-one-net">Three factors to Signal quality with one Net</span><a href="#three-factors-to-signal-quality-with-one-net" class="header-anchor">#</a></h3><ul><li>1 and 2: Frequency-dependent losses in the line from the conductor and the dielectric cause higher-frequency signal components to be attenuated more than the lower-frequency components. The end result is an increase in the rise time of the signal as it propagates. When this rise time degradation approaches the period of a single bit, the digital information will be distorted.  This effect is called <strong>inter-symbol interference (ISI)</strong></li><li>Skew in the single net (time delay between two or more nets can be adjusted by matching the length of two nets)</li></ul><h3><span id="two-situations-that-cross-talk-happens">Two situations that Cross-talk happens</span><a href="#two-situations-that-cross-talk-happens" class="header-anchor">#</a></h3><ul><li>When the interconnects are uniform transmission lines: Anything that changes the return path from a wide uniform plane will increase the amount of coupled noise between two transmission lines.</li><li>When they are not uniform transmission lines:</li></ul><h2><span id="routing-techniques">Routing Techniques</span><a href="#routing-techniques" class="header-anchor">#</a></h2><h3><span id="three-basic-aspects-of-traces-to-consider">Three basic aspects of traces to consider :</span><a href="#three-basic-aspects-of-traces-to-consider" class="header-anchor">#</a></h3><ol><li><p>Trace width / cross section: wider or narrower for impedence matching.</p></li><li><p>Trace length: </p><ul><li><p>Length match for phase control (differential pairs, PS ground plane underneath should uninterrupted)</p></li><li><p>bigger loop area for less induced currents interference.</p></li></ul></li><li><p>Trace distribution: concentrated on one region for less EMI.</p><ul><li>Seperate digital and analog components part (seperate grounding), sometimes called split ground.</li><li>High-Speed components should be placed near the ground plane / away from the board edges.</li></ul></li></ol><h3><span id="four-basic-techniques-for-gnding-and-vias-placement">Four basic techniques for GNDing and vias placement :</span><a href="#four-basic-techniques-for-gnding-and-vias-placement" class="header-anchor">#</a></h3><ol><li>Star grounding topology to prevent ground loops.</li><li>Power-Ground Couping </li><li>Shielding using metal shield or guard traces arround sensitive components</li></ol><h3><span id="practical-techniques-for-gounding">Practical techniques for Gounding</span><a href="#practical-techniques-for-gounding" class="header-anchor">#</a></h3><ul><li><strong>Grounding Near Connectors:</strong> Place ground ports adjacent to I/O connectors to provide a direct return path, minimizing loop area.</li><li><strong>Ground Pours:</strong> Use in unused board areas, connected via vias to prevent antenna effects from floating metal.</li></ul>]]></content>
       
       
       
@@ -48,7 +94,7 @@
       <link href="/2025/03/24/Hexo-category-fix/"/>
       <url>/2025/03/24/Hexo-category-fix/</url>
       
-        <content type="html"><![CDATA[<div class="toc"><!-- toc --><ul><li><a href="#issues">Issues</a></li><li><a href="#solution">Solution</a></li><li><a href="#confession">Confession</a></li></ul><!-- tocstop --></div><h2><span id="issues">Issues</span><a href="#issues" class="header-anchor">#</a></h2><p>On the local host, the category function is doing pretty well. But after deployment, for the category page, the links for each category lead to 404 Not Found errors. </p><p><img src="/images/Screenshot 2025-03-24 at 4.43.21 PM.png" alt="Screenshot 2025-03-24 at 4.43.21 PM"></p><h2><span id="solution">Solution</span><a href="#solution" class="header-anchor">#</a></h2><p>The category tag can’t be capitalized, since the deployment process (don’t know where) uncapitalizes every word and stores them in the GitHub repo.</p><p><img src="/images/Screenshot 2025-03-24 at 4.45.59 PM.png" alt="Screenshot 2025-03-24 at 4.45.59 PM"></p><h2><span id="confession">Confession</span><a href="#confession" class="header-anchor">#</a></h2><p>I spent too much time on this freaking problem /cry… Still, I can’t find the API which Hexo uses for the deployment (or I just don’t want to read through all the node modules).</p>]]></content>
+        <content type="html"><![CDATA[<div class="toc"><!-- toc --><ul><li><a href="#issues">Issues</a></li><li><a href="#solution">Solution</a></li><li><a href="#confession">Confession</a></li></ul><!-- tocstop --></div><h2><span id="issues">Issues</span><a href="#issues" class="header-anchor">#</a></h2><p>On the local host, the category function is doing pretty well. But after deployment, for the category page, the links for each category lead to 404 Not Found errors. </p><p><img src="/images/hexo-fix1.png" alt="Category page not found"></p><h2><span id="solution">Solution</span><a href="#solution" class="header-anchor">#</a></h2><p>The category tag can’t be capitalized, since the deployment process (don’t know where) uncapitalizes every word and stores them in the GitHub repo.</p><p><img src="/images/hexo-fix2.png" alt="The url is incorrect due to capitalized category name"></p><h2><span id="confession">Confession</span><a href="#confession" class="header-anchor">#</a></h2><p>I spent too much time on this freaking problem /cry… Still, I can’t find the API which Hexo uses for the deployment (or I just don’t want to read through all the node modules).</p>]]></content>
       
       
       <categories>
