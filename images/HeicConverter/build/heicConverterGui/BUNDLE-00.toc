@@ -1,0 +1,3 @@
+([('heicConverterGui',
+   '/Users/laurence/Library/CloudStorage/OneDrive-GeorgiaInstituteofTechnology/Mac/Desktop/Coding/personalBlog/source/images/HeicConverter/dist/heicConverterGui',
+   'EXECUTABLE')],)

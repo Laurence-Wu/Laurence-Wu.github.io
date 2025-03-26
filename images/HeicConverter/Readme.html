@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Laurence&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <div id="textContainer">
+          <a href="/" id="logo">Laurence&#39;s Blog</a>
+        </div>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/categories">Categories</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="page-" class="h-entry article article-type-page" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/images/HeicConverter/Readme.html" class="article-date">
+  <time class="dt-published" datetime="2025-03-26T20:53:58.457Z" itemprop="datePublished">2025-03-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><a target="_blank" rel="noopener" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=JBK73YUVW7MGW&amp;source=url"><img src="https://img.shields.io/badge/Donate-PayPal-green.svg" alt="Donate"></a></p>
+<h1><span id="heicconverter">HeicConverter</span><a href="#heicconverter" class="header-anchor">#</a></h1><h2><span id="introduction">Introduction</span><a href="#introduction" class="header-anchor">#</a></h2><p>A very simple command line tool to convert *.heic files to jpg. Since the available programs for windows are either paid<br>or not working for me, I decided to make a simple python script to help convert these files.</p>
+<h2><span id="features">Features</span><a href="#features" class="header-anchor">#</a></h2><ul>
+<li>Convert all HEIC files to jpg in a folder and sub-folders recursively</li>
+<li>Skips already existing conversions</li>
+<li>Keep Metadata of the original file</li>
+<li>Optional: Remove source files</li>
+<li>Optional: Overwrite existing files</li>
+</ul>
+<h2><span id="quick-usage">Quick Usage</span><a href="#quick-usage" class="header-anchor">#</a></h2><ol>
+<li>Copy the prepared exe to the folder with heic files for convert and double click it.</li>
+<li>Use Command line and append the path of interest:</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">./heicConverter.exe path/to/pictures<br></code></pre></td></tr></table></figure>
+<h2><span id="command-line">Command Line</span><a href="#command-line" class="header-anchor">#</a></h2><p>Start the script (or exe) from command line for additional options:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">heicConverter.exe [-h] [-r] [-o] [--not-recursive] [--skip-prompt] [-q QUALITY] [-t TARGET] [path]<br><br>Convert HEIC files to JPEG<br><br>positional arguments:<br>  path                  the path to the file or directory to convert<br><br>options:<br>  -h, --help            show this help message and exit<br>  -r, --remove          Remove converted HEIC Files<br>  -o, --overwrite       Overwrite existing JPEG files<br>  --not-recursive       Do not search subdirectories<br>  --skip-prompt         Skip the prompt at the end<br>  -q QUALITY, --quality QUALITY<br>                        Quality of the JPG Files, default: 95<br>  -t TARGET, --target TARGET<br>                        The target directory for the converted files if not given, the source directory is used<br></code></pre></td></tr></table></figure>
+<h2><span id="gui">GUI</span><a href="#gui" class="header-anchor">#</a></h2><p>Also a GUI Version is available. Just start HeicConverterGui.exe.</p>
+<p><img src="doc/gui_example.png" alt="GUI"></p>
+<h2><span id="installation">Installation</span><a href="#installation" class="header-anchor">#</a></h2><h3><span id="windows">Windows</span><a href="#windows" class="header-anchor">#</a></h3><p>Download the latest release from the <a target="_blank" rel="noopener" href="https://github.com/saschiwy/HeicConverter/releases">Release Page</a> and extract it<br>somewhere on your machine.</p>
+<h3><span id="linux-mac">Linux / Mac</span><a href="#linux-mac" class="header-anchor">#</a></h3><p>Download the repo, install the dependencies and run the script.</p>
+<h2><span id="development-dependencies">Development Dependencies</span><a href="#development-dependencies" class="header-anchor">#</a></h2><p>Install the python package dependencies with:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">pip install -r requirements.txt<br></code></pre></td></tr></table></figure>
+<h2><span id="create-your-own-executable">Create your own executable</span><a href="#create-your-own-executable" class="header-anchor">#</a></h2><p>Install pyinstaller with:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">pip install pyinstaller<br></code></pre></td></tr></table></figure>
+<p>Install the dependencies, navigate with a console to the source dir and run the following commands:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">python -m PyInstaller --onefile --console heicConverter.py<br>python -m PyInstaller --onefile --windowed heicConverterGui.py<br></code></pre></td></tr></table></figure>
+<h2><span id="remarks">Remarks</span><a href="#remarks" class="header-anchor">#</a></h2><p>The basic software was mainly created by people at StackOverflow:<br><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/54395735/how-to-work-with-heic-image-file-types-in-python">https://stackoverflow.com/questions/54395735/how-to-work-with-heic-image-file-types-in-python</a></p>
+<h2><span id="virus-detection">Virus Detection</span><a href="#virus-detection" class="header-anchor">#</a></h2><p>Some people reported that their virus scanner detected a virus in the exe file. According to this reddit post:<br><a target="_blank" rel="noopener" href="https://www.reddit.com/r/computerviruses/comments/mkrmg7/windows_defender_found_wacapewc_ml/">Windows Defender found “wacapew.c! ml”</a><br>the pyinstaller<br>is adding a file which can be detected as virus. I can assure you, I did not add any virus. However, I used external<br>libraries and I cannot guarantee that they are free of viruses. If you are unsure, you can either create a exe yourself<br>(see above) or use the python script directly.</p>
+<p>Also, very interesting is, that the console tool has a higher detection rate than the GUI tool. According to another<br>reddit post, the python exe creation uses some similar signature as a<br>virus. <a target="_blank" rel="noopener" href="https://www.reddit.com/r/learnpython/comments/18s8y0x/my_python_program_is_a_trojan/">My python program is a Trojan?</a></p>
+<p><img src="doc/vt_heic_console.png" alt="VirusTotal Console"></p>
+<p><a target="_blank" rel="noopener" href="https://www.virustotal.com/gui/file/747558f1795aa03a2f64385002caa8a389841ef01d0ff0cac31d93496b5e462c">VirusTotal Console</a></p>
+<p><img src="doc/vt_heic_gui.png" alt="!VirusTotal GUI"></p>
+<p><a target="_blank" rel="noopener" href="https://www.virustotal.com/gui/file/ffec5bfc65f77c1a9c4dbe3c23dd602b10f2f83e7bc64d3a17047cca8692c0bf">VirusTotal GUI</a></p>
+<p>The number of detections is still very low with 3/72 and 5/72.</p>
+<p><strong>If you still have concerns I recommend to not use this software.</strong></p>
+<h2><span id="example">Example</span><a href="#example" class="header-anchor">#</a></h2><p><img src="doc/example.png" alt="Example"></p>
+<h2><span id="contribution">Contribution</span><a href="#contribution" class="header-anchor">#</a></h2><p>Thanks to all contributors. Feel free to fork and improve the code.</p>
+
+      
+    </div>
+    <!-- <footer class="article-footer">
+      <a data-url="https://laurence-wu.github.io/images/HeicConverter/Readme.html" data-id="cm8qhl2h8000a7x4raa5q3a7n" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer> -->
+  </div>
+  
+    
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  
+    
+<div class="widget-wrap">
+  <h3 class="widget-title">Search</h3>
+  <div class="widget">
+    <div class="form-group">
+      <input
+        type="text"
+        id="local-search-input"
+        name="q"
+        results="0"
+        placeholder="     Search"
+        class="st-default-search-input"
+        autocomplete="on"
+      />
+    </div>
+  </div>
+</div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-C/" rel="tag">C&#x2F;C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Layout/" rel="tag">Layout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PCB-design/" rel="tag">PCB design</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/experiments/" rel="tag">experiments</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/guide/" rel="tag">guide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markup/" rel="tag">markup</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stm/" rel="tag">stm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web-development/" rel="tag">web development</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/03/26/How-does-flyback-diode-work/">How Does Flyback Diode Work</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/25/STM32MP157-guide/">STM32MP157 guide</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/25/Cmake-guide-md/">A guide to Cmake</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/24/Signal-Integrity/">Signal Integrity Notes</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/24/Hexo-category-fix/">Hexo category can&#39;t deploy fix</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/debug/">debug</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/guide/">guide</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ic-design/">ic design</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/methodologies/">methodologies</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">March 2025</a></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2025 By Laurence Wu<br>
+      Driven - <a href="https://hexo.io/" target="_blank">Hexo</a> | Theme - <a href="https://github.com/autoload/hexo-theme-auto" target="_blank">Auto</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Swiftype! https://swiftype.com/-->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','QsbnF25r7YG4QNmK75ZS','2.0.0');
+</script>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+    <script src='https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js'></script>
+    <script>
+      if (window.mermaid) {
+        mermaid.initialize({theme: 'forest'});
+      }
+    </script>
+  
+
+  </div>
+</body>
+</html>
