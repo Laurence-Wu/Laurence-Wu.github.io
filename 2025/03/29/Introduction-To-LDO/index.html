@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>STM32MP157 guide | Laurence&#39;s Blog</title>
+  <title>Introduction To LDO | Laurence&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   
     <link rel="shortcut icon" href="/favicon.png">
@@ -47,14 +47,14 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-STM32MP157-guide" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-Introduction-To-LDO" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2025/03/25/STM32MP157-guide/" class="article-date">
-  <time class="dt-published" datetime="2025-03-25T23:13:03.000Z" itemprop="datePublished">2025-03-25</time>
+    <a href="/2025/03/29/Introduction-To-LDO/" class="article-date">
+  <time class="dt-published" datetime="2025-03-29T05:53:29.000Z" itemprop="datePublished">2025-03-29</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/ic-design/">ic design</a>
+    <a class="article-category-link" href="/categories/electrical-circuit/">electrical circuit</a>
   </div>
 
   </div>
@@ -65,7 +65,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      STM32MP157 guide
+      Introduction To LDO
     </h1>
   
 
@@ -73,15 +73,30 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1><span id="guide-to-stm32mp157-routing">Guide to STM32MP157 Routing</span><a href="#guide-to-stm32mp157-routing" class="header-anchor">#</a></h1>
+        <h2><span id="what-is-an-ldo-regulator">What Is an LDO Regulator?</span><a href="#what-is-an-ldo-regulator" class="header-anchor">#</a></h2><p>A low-dropout regulator (LDO) is a type of DC linear voltage regulator circuit capable of operating even when the supply voltage is very close to the output voltage. This is why we sometimes choose LDO over buck converter. While no strict numerical definition exists, generally the lowest voltage at which an LDO can operate stably is less than 1V <a target="_blank" rel="noopener" href="https://www.rohm.com/electronics-basics/dc-dc-converters/dcdc_what8">Reference</a>.</p>
+<h2><span id="core-components-and-operation">Core Components and Operation</span><a href="#core-components-and-operation" class="header-anchor">#</a></h2><p>An LDO typically consists of several key components: a power FET (acting as the pass element: which is an element that allows the current to pass through it to the load), a differential amplifier (error amplifier), and a stable voltage reference (more about voltage reference generation). </p>
+<p><img src="images/Introduction_to_LDO/Standby Current of LDO Regulator.png" alt="Standby Current of LDO Regulator"></p>
+<p>Low Noise Performance</p>
+<p>One of the primary reasons to choose an LDO is its superior noise performance. Unlike switching regulators, LDOs produce no switching noise as they operate without rapidly switching elements<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Low-dropout_regulator">1</a><a target="_blank" rel="noopener" href="https://www.circuitbread.com/ee-faq/when-should-you-choose-ldo-or-buck-converter">3</a>. This makes them ideal for noise-sensitive applications such as communication equipment, radio devices, and precision analog circuits where minimizing supply noise is critical<a target="_blank" rel="noopener" href="https://www.analog.com/en/resources/app-notes/an-140.html">8</a>.</p>
+<h2><span id="when-to-choose-an-ldo-regulator">When to Choose an LDO Regulator</span><a href="#when-to-choose-an-ldo-regulator" class="header-anchor">#</a></h2><h2><span id="optimal-application-scenarios">Optimal Application Scenarios</span><a href="#optimal-application-scenarios" class="header-anchor">#</a></h2><p>LDOs excel in specific applications where their unique characteristics provide advantages over switching regulators:</p>
+<ol>
+<li><strong>Noise-sensitive applications</strong>: For circuits involving RF components, high-precision analog sections, or sensitive measurements, the low-noise operation of LDOs is invaluable<a target="_blank" rel="noopener" href="https://www.analog.com/en/resources/app-notes/an-140.html">8</a>.</li>
+<li><strong>Small voltage differential</strong>: When the output voltage is close to the input voltage (e.g., 5V to 3.3V), LDOs can be highly efficient solutions<a target="_blank" rel="noopener" href="https://www.nklabs.com/post/2020/01/14/when-is-an-ldo-more-efficient-than-a-switching-power-converter">4</a><a target="_blank" rel="noopener" href="https://www.analog.com/en/resources/app-notes/an-140.html">8</a>.</li>
+<li><strong>Low power applications</strong>: For systems with low current requirements where thermal concerns are minimal, LDOs provide a simple, reliable solution<a target="_blank" rel="noopener" href="https://www.analog.com/en/resources/app-notes/an-140.html">8</a>.</li>
+<li><strong>Post-regulation</strong>: LDOs are often used after switching regulators to clean up noise, essentially combining the efficiency of switching regulators with the low-noise performance of LDOs<a target="_blank" rel="noopener" href="https://www.analog.com/en/resources/analog-dialogue/articles/a-comprehensive-guide-to-ldo-regulators.html">2</a>.</li>
+<li><strong>Battery-powered applications</strong>: Where light-load efficiency and minimal component count are important, LDOs can offer advantages, especially as battery voltage decreases toward the required output voltage<a target="_blank" rel="noopener" href="https://www.analog.com/en/resources/app-notes/an-140.html">8</a>.</li>
+</ol>
+<h2><span id="more-advanced-ldo-desgin">More advanced LDO desgin</span><a href="#more-advanced-ldo-desgin" class="header-anchor">#</a></h2><p><img src="images/Introduction_to_LDO/Standby Current of LDO Regulator.png" alt="Standby Current of LDO Regulator"></p>
+<p>This advanced design used a comparator for directing the signal and granted mroe precise control over output voltage</p>
+
       
     </div>
     <!-- <footer class="article-footer">
-      <a data-url="https://laurence-wu.github.io/2025/03/25/STM32MP157-guide/" data-id="cm8uo5y9x000gpb3f94mw5hrb" data-title="STM32MP157 guide" class="article-share-link">Share</a>
+      <a data-url="https://laurence-wu.github.io/2025/03/29/Introduction-To-LDO/" data-id="cm8uo5y9r0003pb3f9r8u2w0v" data-title="Introduction To LDO" class="article-share-link">Share</a>
       
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stm/" rel="tag">stm</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LDO/" rel="tag">LDO</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/control-system/" rel="tag">control system</a></li></ul>
 
     </footer> -->
   </div>
@@ -89,19 +104,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2025/03/26/How-does-flyback-diode-work/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          How Does Flyback Diode Work
-        
-      </div>
-    </a>
   
-  
-    <a href="/2025/03/25/Cmake-guide-md/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2025/03/26/How-does-flyback-diode-work/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">A guide to Cmake</div>
+      <div class="article-nav-title">How Does Flyback Diode Work</div>
     </a>
   
 </nav>

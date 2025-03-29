@@ -69,11 +69,120 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        
+        <div class="toc">
+
+<!-- toc -->
+<ul>
+<li><a href="#cmake-execution-flow-chart">CMake execution flow chart</a></li>
+<li><a href="#three-main-stages">Three Main Stages</a><ul>
+<li><a href="#configurations">Configurations</a></li>
+<li><a href="#generations">Generations</a></li>
+<li><a href="#build">Build</a></li>
+</ul>
+</li>
+<li><a href="#core-cmake-concepts">Core CMake Concepts</a><ul>
+<li><a href="#targets-and-properties">Targets and Properties</a></li>
+<li><a href="#find-packages-and-dependencies">Find Packages and Dependencies</a></li>
+</ul>
+</li>
+<li><a href="#advanced-cmake-topics">Advanced CMake Topics</a><ul>
+<li><a href="#generator-expressions">Generator Expressions</a></li>
+<li><a href="#custom-commands-and-build-events">Custom Commands and Build Events</a></li>
+<li><a href="#configuring-files">Configuring Files</a></li>
+</ul>
+</li>
+<li><a href="#modern-cmake-best-practices">Modern CMake Best Practices</a><ul>
+<li><a href="#multi-project-organization">Multi-Project Organization</a></li>
+<li><a href="#package-installation-and-export">Package Installation and Export</a></li>
+<li><a href="#debugging-cmake">Debugging CMake</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+</div>
+
+<h2><span id="cmake-execution-flow-chart">CMake execution flow chart</span><a href="#cmake-execution-flow-chart" class="header-anchor">#</a></h2><pre class="mermaid">graph TD
+    A[Start] --> B["Write CMakeLists.txt Files"]
+    B --> C["Run CMake Command (e.g., cmake .)"]
+    C --> D{"CMakeLists.txt Valid?"}
+    D -- No --> E["Error Message<br>Fix Configuration"]
+    D -- Yes --> F["Parse CMakeLists.txt"]
+    F --> G["Check System Dependencies<br>(Compiler, Libraries)"]
+    G --> H{"All Dependencies Found?"}
+    H -- No --> I["Error Message<br>Missing Tools/Libraries"]
+    H -- Yes --> J["Generate Build System Files<br>(Makefiles, .sln, Xcode Projects)"]
+    J --> K["Build System Ready"]
+    K --> L["Run Build Tool<br>(make, ninja, MSBuild)"]
+    L --> M{"Compilation<br>Successful?"}
+    M -- No --> N["Fix Code/Configuration"]
+    M -- Yes --> O["Generate Executables/Libraries"]
+    O --> P[End]</pre>
+
+
+
+<h2><span id="three-main-stages">Three Main Stages</span><a href="#three-main-stages" class="header-anchor">#</a></h2><h3><span id="configurations">Configurations</span><a href="#configurations" class="header-anchor">#</a></h3><ol>
+<li><strong>Parsing CMakeLists.txt</strong>: CMake reads your build description files and executes the commands sequentially</li>
+<li><strong>System inspection</strong>: Checks for available compilers, tools, and libraries on the system</li>
+<li><strong>Dependency resolution</strong>: Identifies and locates required external packages</li>
+<li><strong>Variable evaluation</strong>: Sets up build variables and processes conditionals</li>
+</ol>
+<h3><span id="generations">Generations</span><a href="#generations" class="header-anchor">#</a></h3><ol>
+<li><strong>Build system selection</strong>: CMake determines which generator to use (Make, Ninja, Visual Studio, etc.)</li>
+<li><strong>File generation</strong>: Creates all necessary files for the selected build system</li>
+<li><strong>Dependency graph construction</strong>: Maps out how targets depend on each other.</li>
+</ol>
+<h3><span id="build">Build</span><a href="#build" class="header-anchor">#</a></h3><ol>
+<li><strong>Compilation</strong>: Source files are compiled into object files</li>
+<li><strong>Linking</strong>: Object files are linked together to form executables or libraries</li>
+<li><strong>Post-build steps</strong>: Any custom commands or installation rules are executed</li>
+</ol>
+<h2><span id="core-cmake-concepts">Core CMake Concepts</span><a href="#core-cmake-concepts" class="header-anchor">#</a></h2><h3><span id="targets-and-properties">Targets and Properties</span><a href="#targets-and-properties" class="header-anchor">#</a></h3><p>In modern CMake, everything revolves around <strong>targets</strong> (executables, libraries, custom outputs) and <strong>properties</strong> associated with those targets:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">text<br># Create a library target<br>add_library(MyLib SHARED src/lib.cpp src/utils.cpp)<br><br># Set properties on the target<br>target_include_directories(MyLib <br>    PUBLIC include             # Headers for users of the library<br>    PRIVATE src                # Internal headers<br>)<br>target_compile_features(MyLib PUBLIC cxx_std_17)<br></code></pre></td></tr></table></figure>
+<p>Properties can have different visibility levels:</p>
+<ul>
+<li><strong>PRIVATE</strong>: Used only by the target itself</li>
+<li><strong>PUBLIC</strong>: Used by both the target and any target that links to it</li>
+<li><strong>INTERFACE</strong>: Used only by targets that link to this one<a target="_blank" rel="noopener" href="https://gist.github.com/mbinna/c61dbb39bca0e4fb7d1f73b0d66a4fd1">8</a></li>
+</ul>
+<h3><span id="find-packages-and-dependencies">Find Packages and Dependencies</span><a href="#find-packages-and-dependencies" class="header-anchor">#</a></h3><p>CMake provides a powerful mechanism for finding and using external libraries:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">text<br># Find an external package<br>find_package(Boost REQUIRED COMPONENTS system filesystem)<br><br># Link against it<br>target_link_libraries(MyApp PRIVATE Boost::system Boost::filesystem)<br></code></pre></td></tr></table></figure>
+<p>This approach works with CMake’s built-in find modules and package config files provided by libraries<a target="_blank" rel="noopener" href="https://gist.github.com/mbinna/c61dbb39bca0e4fb7d1f73b0d66a4fd1">8</a>.</p>
+<h2><span id="advanced-cmake-topics">Advanced CMake Topics</span><a href="#advanced-cmake-topics" class="header-anchor">#</a></h2><h3><span id="generator-expressions">Generator Expressions</span><a href="#generator-expressions" class="header-anchor">#</a></h3><p>Generator expressions provide powerful capabilities for conditional property setting:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">text<br>target_compile_definitions(MyApp PRIVATE<br>    &quot;VERSION_STR=\&quot;$&lt;$&lt;CONFIG:Debug&gt;:Debug_&gt;$&#123;VERSION&#125;\&quot;&quot;)<br></code></pre></td></tr></table></figure>
+<p>This adds a different version string definition depending on the build configuration<a target="_blank" rel="noopener" href="https://gist.github.com/mbinna/c61dbb39bca0e4fb7d1f73b0d66a4fd1">8</a>.</p>
+<h3><span id="custom-commands-and-build-events">Custom Commands and Build Events</span><a href="#custom-commands-and-build-events" class="header-anchor">#</a></h3><p>For special build steps:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">text<br>add_custom_command(<br>    OUTPUT $&#123;CMAKE_CURRENT_BINARY_DIR&#125;/generated.cpp<br>    COMMAND $&#123;PYTHON_EXECUTABLE&#125; $&#123;CMAKE_CURRENT_SOURCE_DIR&#125;/generator.py<br>    DEPENDS $&#123;CMAKE_CURRENT_SOURCE_DIR&#125;/input.txt<br>)<br></code></pre></td></tr></table></figure>
+<h3><span id="configuring-files">Configuring Files</span><a href="#configuring-files" class="header-anchor">#</a></h3><p>CMake can generate files with variable substitutions:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">text<br>configure_file(<br>    &quot;$&#123;PROJECT_SOURCE_DIR&#125;/config.h.in&quot;<br>    &quot;$&#123;PROJECT_BINARY_DIR&#125;/config.h&quot;<br>)<br></code></pre></td></tr></table></figure>
+<p>In <code>config.h.in</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">c<br>#define VERSION &quot;@PROJECT_VERSION@&quot;<br></code></pre></td></tr></table></figure>
+<p>This will substitute the <code>@PROJECT_VERSION@</code> token with the actual project version<a target="_blank" rel="noopener" href="https://cmake.org/cmake/help/book/mastering-cmake/cmake/Help/guide/tutorial/">17</a>.</p>
+<h2><span id="modern-cmake-best-practices">Modern CMake Best Practices</span><a href="#modern-cmake-best-practices" class="header-anchor">#</a></h2><p>The field of CMake best practices has evolved over time. Here are the most important guidelines:</p>
+<ol>
+<li><strong>Use at least CMake 3.0</strong>: Modern CMake features are only available in newer versions<a target="_blank" rel="noopener" href="https://gist.github.com/mbinna/c61dbb39bca0e4fb7d1f73b0d66a4fd1">8</a>.</li>
+<li><strong>Treat CMake code as production code</strong>: Keep it clean, organized, and follow consistent patterns<a target="_blank" rel="noopener" href="https://gist.github.com/mbinna/c61dbb39bca0e4fb7d1f73b0d66a4fd1">8</a>.</li>
+<li><strong>Define project properties at target level</strong>: Avoid global settings that affect all targets<a target="_blank" rel="noopener" href="https://gist.github.com/mbinna/c61dbb39bca0e4fb7d1f73b0d66a4fd1">8</a>.</li>
+<li><strong>Forget directory-level commands</strong>: Avoid <code>add_compile_options</code>, <code>include_directories</code>, <code>link_directories</code>, and <code>link_libraries</code><a target="_blank" rel="noopener" href="https://gist.github.com/mbinna/c61dbb39bca0e4fb7d1f73b0d66a4fd1">8</a>.</li>
+<li><strong>Keep your hands off CMAKE_CXX_FLAGS</strong>: Use target properties instead<a target="_blank" rel="noopener" href="https://gist.github.com/mbinna/c61dbb39bca0e4fb7d1f73b0d66a4fd1">8</a>.</li>
+<li><strong>Always specify visibility with target commands</strong>: Use <code>PRIVATE</code>, <code>PUBLIC</code>, or <code>INTERFACE</code> appropriately<a target="_blank" rel="noopener" href="https://gist.github.com/mbinna/c61dbb39bca0e4fb7d1f73b0d66a4fd1">8</a>.</li>
+<li><strong>Don’t use <code>file(GLOB)</code> for source files</strong>: List source files explicitly so CMake can detect when they change<a target="_blank" rel="noopener" href="https://gist.github.com/mbinna/c61dbb39bca0e4fb7d1f73b0d66a4fd1">8</a>.</li>
+<li><strong>Create proper installation rules</strong>: Define what gets installed and where<a target="_blank" rel="noopener" href="https://gist.github.com/mbinna/c61dbb39bca0e4fb7d1f73b0d66a4fd1">8</a>.</li>
+</ol>
+<h3><span id="multi-project-organization">Multi-Project Organization</span><a href="#multi-project-organization" class="header-anchor">#</a></h3><p>For larger projects with multiple components:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">text<br># Top-level CMakeLists.txt<br>cmake_minimum_required(VERSION 3.10)<br>project(SuperProject VERSION 1.0)<br><br># Add subdirectories for components<br>add_subdirectory(lib)<br>add_subdirectory(app)<br></code></pre></td></tr></table></figure>
+<p>In <code>app/CMakeLists.txt</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">text<br>add_executable(MyApp main.cpp)<br>target_link_libraries(MyApp PRIVATE MyLib)<br></code></pre></td></tr></table></figure>
+<p>This approach enables proper dependency tracking between subprojects<a target="_blank" rel="noopener" href="https://www.reddit.com/r/cpp/comments/1avfs34/any_good_guides_for_setting_up_multilibrary_cmake/">3</a>.</p>
+<h3><span id="package-installation-and-export">Package Installation and Export</span><a href="#package-installation-and-export" class="header-anchor">#</a></h3><p>To make your library usable by other CMake projects:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">text<br>install(TARGETS MyLib<br>    EXPORT MyLibTargets<br>    LIBRARY DESTINATION lib<br>    ARCHIVE DESTINATION lib<br>    RUNTIME DESTINATION bin<br>    INCLUDES DESTINATION include<br>)<br><br>install(EXPORT MyLibTargets<br>    FILE MyLibTargets.cmake<br>    NAMESPACE MyLib::<br>    DESTINATION lib/cmake/MyLib<br>)<br><br>configure_package_config_file(<br>    MyLibConfig.cmake.in<br>    $&#123;CMAKE_CURRENT_BINARY_DIR&#125;/MyLibConfig.cmake<br>    INSTALL_DESTINATION lib/cmake/MyLib<br>)<br><br>install(FILES<br>    $&#123;CMAKE_CURRENT_BINARY_DIR&#125;/MyLibConfig.cmake<br>    DESTINATION lib/cmake/MyLib<br>)<br></code></pre></td></tr></table></figure>
+<p>This creates a complete package that other projects can use with <code>find_package(MyLib)</code><a target="_blank" rel="noopener" href="https://gist.github.com/mbinna/c61dbb39bca0e4fb7d1f73b0d66a4fd1">8</a>.</p>
+<h3><span id="debugging-cmake">Debugging CMake</span><a href="#debugging-cmake" class="header-anchor">#</a></h3><p>For troubleshooting CMake issues:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">bash<br># Verbose output during build<br>cmake --build build --verbose<br><br># See variable values<br>message(STATUS &quot;My variable: $&#123;MY_VARIABLE&#125;&quot;)<br><br># Dump all variables<br>cmake -LA .<br><br># Inspect the build system<br>cmake --trace-expand .<br></code></pre></td></tr></table></figure>
+
       
     </div>
     <!-- <footer class="article-footer">
-      <a data-url="https://laurence-wu.github.io/2025/03/25/Cmake-guide-md/" data-id="cm8qhl2h000017x4rc2dddbdr" data-title="A guide to Cmake" class="article-share-link">Share</a>
+      <a data-url="https://laurence-wu.github.io/2025/03/25/Cmake-guide-md/" data-id="cm8uo5y9o0001pb3f0ype2l9q" data-title="A guide to Cmake" class="article-share-link">Share</a>
       
       
       
@@ -133,7 +242,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-C/" rel="tag">C&#x2F;C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Layout/" rel="tag">Layout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PCB-design/" rel="tag">PCB design</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/experiments/" rel="tag">experiments</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/guide/" rel="tag">guide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markup/" rel="tag">markup</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stm/" rel="tag">stm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web-development/" rel="tag">web development</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-C/" rel="tag">C&#x2F;C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LDO/" rel="tag">LDO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Layout/" rel="tag">Layout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PCB-design/" rel="tag">PCB design</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/control-system/" rel="tag">control system</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/experiments/" rel="tag">experiments</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/guide/" rel="tag">guide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markup/" rel="tag">markup</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stm/" rel="tag">stm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web-development/" rel="tag">web development</a></li></ul>
     </div>
   </div>
 
@@ -144,6 +253,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2025/03/29/Introduction-To-LDO/">Introduction To LDO</a>
+          </li>
         
           <li>
             <a href="/2025/03/26/How-does-flyback-diode-work/">How Does Flyback Diode Work</a>
@@ -161,10 +274,6 @@
             <a href="/2025/03/24/Signal-Integrity/">Signal Integrity Notes</a>
           </li>
         
-          <li>
-            <a href="/2025/03/24/Hexo-category-fix/">Hexo category can&#39;t deploy fix</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -174,7 +283,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/debug/">debug</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/guide/">guide</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ic-design/">ic design</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/methodologies/">methodologies</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/debug/">debug</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/electrical-circuit/">electrical circuit</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/guide/">guide</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ic-design/">ic design</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/methodologies/">methodologies</a></li></ul>
     </div>
   </div>
 
