@@ -73,11 +73,49 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1><span id="guide-to-stm32mp157-routing">Guide to STM32MP157 Routing</span><a href="#guide-to-stm32mp157-routing" class="header-anchor">#</a></h1>
+        <h1><span id="guide-to-stm32mp157-routing">Guide to STM32MP157 Routing</span><a href="#guide-to-stm32mp157-routing" class="header-anchor">#</a></h1><h2><span id="timing-and-clocking">Timing and clocking</span><a href="#timing-and-clocking" class="header-anchor">#</a></h2><ul>
+<li><p>High speed External Oscillator(HSE) : at 16-24Mhz  and uses PH0-OSC IN and PH1-OSC OUT</p>
+</li>
+<li><p>Low speed External Oscillator (LSE):  for RTC and uses PC14-OSC32_IN and PC15-OSC32_OUT</p>
+</li>
+</ul>
+<p>This STM package we are using  8-48 MHz HSE oscillator, 32.768 kHz LSE oscillator. Crystal is symmetical. Normally we can connect it with 10pF caps and no exit resistance. For more <a target="_blank" rel="noopener" href="https://www.st.com/resource/en/application_note/an2867-guidelines-for-oscillator-design-on-stm8afals-and-stm32-mcusmpus-stmicroelectronics.pdf">information</a>.</p>
+<h2><span id="power-pins">Power pins</span><a href="#power-pins" class="header-anchor">#</a></h2><h3><span id="general-pins">General pins</span><a href="#general-pins" class="header-anchor">#</a></h3><ul>
+<li><p><strong>VCC(Voltage Common Collector)</strong>: supply voltage for the digital circuit.</p>
+</li>
+<li><p><strong>VCCA</strong>: supply voltage to the analog circuit.</p>
+</li>
+<li><p><strong>VDD</strong>: Main digital power supply</p>
+</li>
+<li><p><strong>VSS</strong>: ground reference for MOSFET circuits. Critical for the circuit return path.</p>
+</li>
+<li><p><strong>VEE</strong>: negative supply in BJT circuits.</p>
+<hr>
+<h3><span id="specific-pins">Specific pins</span><a href="#specific-pins" class="header-anchor">#</a></h3></li>
+<li><p><strong>VREF</strong>+: Internal or external ADC/DAC reference. Requires Low-noise filtering (usually 0.1uF or 4.7uF caps). For snaller pint-count chips, VREF+ might be internally tied to VDDA.</p>
+</li>
+<li><strong>VBAT</strong>: Backup-power for RTC / IC, usually filtered by a 4.7uF capacitor.</li>
+<li><strong>VPP</strong>: stands for Peak-to-Peak voltage</li>
+</ul>
+<h3><span id="techniques-for-connections">Techniques for connections</span><a href="#techniques-for-connections" class="header-anchor">#</a></h3><ul>
+<li>Adding decoupling capacitors(can be further from the IC) for fasting current inflow, since when current is draw voltage would decrease, and it is exactly when the decoupling capacitor will supply its voltage.<ul>
+<li>Local decoupling capacitors: local faster current drawing</li>
+<li>Bulk decoupling capacitors: overall current transient response</li>
+</ul>
+</li>
+<li>Adding ferrite Bead for VDDA analog ground.</li>
+</ul>
+<h2><span id="boot-pins">Boot pins</span><a href="#boot-pins" class="header-anchor">#</a></h2><p><img src="images/Guide-to-stm32MP157-routing/boot-mode.png" alt="boot-mode"></p>
+<ul>
+<li>If the booting is not desired, pull this low with 10k/1M R or a switch</li>
+</ul>
+<h2><span id="nrst-pins">NRST pins</span><a href="#nrst-pins" class="header-anchor">#</a></h2><p><img src="images/Guide-to-stm32MP157-routing/nrst.png" alt="nrst"></p>
+<p>Nomally a weak pull-up resistor 40k. A good way to prevent spurious reset is to strengthen the internal pull up with smaller 10k connected to 3V3 and add a debouncing capacitor.</p>
+
       
     </div>
     <!-- <footer class="article-footer">
-      <a data-url="https://laurence-wu.github.io/2025/03/25/STM32MP157-guide/" data-id="cm8uxnqg5000ble3ffv8x4jk1" data-title="STM32MP157 guide" class="article-share-link">Share</a>
+      <a data-url="https://laurence-wu.github.io/2025/03/25/STM32MP157-guide/" data-id="cm97lvmey000o6i3ffpop8ogh" data-title="STM32MP157 guide" class="article-share-link">Share</a>
       
       
       
@@ -137,7 +175,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-C/" rel="tag">C&#x2F;C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LDO/" rel="tag">LDO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Layout/" rel="tag">Layout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PCB-design/" rel="tag">PCB design</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/control-system/" rel="tag">control system</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/experiments/" rel="tag">experiments</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/guide/" rel="tag">guide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markup/" rel="tag">markup</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stm/" rel="tag">stm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web-development/" rel="tag">web development</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-C/" rel="tag">C&#x2F;C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LDO/" rel="tag">LDO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Layout/" rel="tag">Layout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PCB-design/" rel="tag">PCB design</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithms/" rel="tag">algorithms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/control-system/" rel="tag">control system</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/experiments/" rel="tag">experiments</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/guide/" rel="tag">guide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markup/" rel="tag">markup</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pattern-matching/" rel="tag">pattern_matching</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stm/" rel="tag">stm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web-development/" rel="tag">web development</a></li></ul>
     </div>
   </div>
 
@@ -148,6 +186,14 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2025/04/07/Introduction-to-C/">Introduction_to_C</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/31/PatternMatching/">Pattern Matching</a>
+          </li>
         
           <li>
             <a href="/2025/03/29/Introduction-To-LDO/">Introduction To LDO</a>
@@ -161,14 +207,6 @@
             <a href="/2025/03/25/STM32MP157-guide/">STM32MP157 guide</a>
           </li>
         
-          <li>
-            <a href="/2025/03/25/Cmake-guide-md/">A guide to Cmake</a>
-          </li>
-        
-          <li>
-            <a href="/2025/03/24/Signal-Integrity/">Signal Integrity Notes</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -178,7 +216,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/debug/">debug</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/electrical-circuit/">electrical circuit</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/guide/">guide</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ic-design/">ic design</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/methodologies/">methodologies</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-architecture/">computer architecture</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">computer_science</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/debug/">debug</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/electrical-circuit/">electrical circuit</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/guide/">guide</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ic-design/">ic design</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/methodologies/">methodologies</a></li></ul>
     </div>
   </div>
 
@@ -188,7 +226,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">March 2025</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">April 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">March 2025</a></li></ul>
     </div>
   </div>
 
