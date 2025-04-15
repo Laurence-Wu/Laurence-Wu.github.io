@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Introduction_to_C | Laurence&#39;s Blog</title>
+  <title>Memory Model for C | Laurence&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   
     <link rel="shortcut icon" href="/favicon.png">
@@ -65,7 +65,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      Introduction_to_C
+      Memory Model for C
     </h1>
   
 
@@ -73,7 +73,31 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1><span id="general-properties-of-data-storage">General properties of data storage</span><a href="#general-properties-of-data-storage" class="header-anchor">#</a></h1><h1><span id="different-sections-in-the-memory">Different sections in the Memory</span><a href="#different-sections-in-the-memory" class="header-anchor">#</a></h1><h2><span id="overview-of-the-memory-model">Overview of the memory model</span><a href="#overview-of-the-memory-model" class="header-anchor">#</a></h2><pre class="mermaid">graph TD
+        <div class="toc">
+
+<!-- toc -->
+<ul>
+<li><a href="#different-sections-in-the-memory">Different sections in the Memory</a><ul>
+<li><a href="#overview-of-the-memory-model">Overview of the memory model</a></li>
+<li><a href="#stack-implementations">Stack Implementations</a><ul>
+<li><a href="#activation-frame-layout">Activation Frame Layout</a></li>
+<li><a href="#detailed-process-for-calling-a-function">Detailed process for calling a function:</a></li>
+</ul>
+</li>
+<li><a href="#heap-implementations">Heap Implementations</a><ul>
+<li><a href="#basic-heap-interfaces-dynamics-allocation">Basic Heap Interfaces: dynamics allocation:</a></li>
+<li><a href="#general-memory-allocation-process">General Memory Allocation Process</a></li>
+<li><a href="#heap-allocation-pollicies">Heap allocation Pollicies</a></li>
+</ul>
+</li>
+<li><a href="#statics-memory">Statics memory</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+</div>
+
+<h1><span id="different-sections-in-the-memory">Different sections in the Memory</span><a href="#different-sections-in-the-memory" class="header-anchor">#</a></h1><h2><span id="overview-of-the-memory-model">Overview of the memory model</span><a href="#overview-of-the-memory-model" class="header-anchor">#</a></h2><pre class="mermaid">graph TD
     classDef pointer fill:#f9d,stroke:#333;
 
     %% Main Vertical Structure
@@ -200,17 +224,26 @@
       
     </div>
     <!-- <footer class="article-footer">
-      <a data-url="https://laurence-wu.github.io/2025/04/07/Introduction-to-C/" data-id="cm97lvmew000f6i3f0amx5mmz" data-title="Introduction_to_C" class="article-share-link">Share</a>
+      <a data-url="https://laurence-wu.github.io/2025/04/07/Introduction-to-C/" data-id="cm9iqwdg0000f7u381z8ybbls" data-title="Memory Model for C" class="article-share-link">Share</a>
       
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/" rel="tag">c</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c-c/" rel="tag">c&#x2F;c++</a></li></ul>
 
     </footer> -->
   </div>
   
     
 <nav id="article-nav">
+  
+    <a href="/2025/04/07/Introduction-to-Sorting/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Introduction to Sorting
+        
+      </div>
+    </a>
   
   
     <a href="/2025/03/31/PatternMatching/" id="article-nav-older" class="article-nav-link-wrap">
@@ -251,7 +284,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-C/" rel="tag">C&#x2F;C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LDO/" rel="tag">LDO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Layout/" rel="tag">Layout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PCB-design/" rel="tag">PCB design</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithms/" rel="tag">algorithms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/control-system/" rel="tag">control system</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/experiments/" rel="tag">experiments</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/guide/" rel="tag">guide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markup/" rel="tag">markup</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pattern-matching/" rel="tag">pattern_matching</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stm/" rel="tag">stm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web-development/" rel="tag">web development</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-C/" rel="tag">C&#x2F;C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LDO/" rel="tag">LDO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Layout/" rel="tag">Layout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PCB-design/" rel="tag">PCB design</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithm/" rel="tag">algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithms/" rel="tag">algorithms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-c/" rel="tag">c&#x2F;c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/control-system/" rel="tag">control system</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/experiments/" rel="tag">experiments</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/guide/" rel="tag">guide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/layout/" rel="tag">layout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markup/" rel="tag">markup</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pattern-matching/" rel="tag">pattern_matching</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sorting/" rel="tag">sorting</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stm/" rel="tag">stm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web-development/" rel="tag">web development</a></li></ul>
     </div>
   </div>
 
@@ -264,7 +297,15 @@
       <ul>
         
           <li>
-            <a href="/2025/04/07/Introduction-to-C/">Introduction_to_C</a>
+            <a href="/2025/04/14/BuzzCar-PCBdesign/">BuzzCar_PCBdesign</a>
+          </li>
+        
+          <li>
+            <a href="/2025/04/07/Introduction-to-Sorting/">Introduction to Sorting</a>
+          </li>
+        
+          <li>
+            <a href="/2025/04/07/Introduction-to-C/">Memory Model for C</a>
           </li>
         
           <li>
@@ -273,14 +314,6 @@
         
           <li>
             <a href="/2025/03/29/Introduction-To-LDO/">Introduction To LDO</a>
-          </li>
-        
-          <li>
-            <a href="/2025/03/26/How-does-flyback-diode-work/">How Does Flyback Diode Work</a>
-          </li>
-        
-          <li>
-            <a href="/2025/03/25/STM32MP157-guide/">STM32MP157 guide</a>
           </li>
         
       </ul>
@@ -292,7 +325,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-architecture/">computer architecture</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">computer_science</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/debug/">debug</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/electrical-circuit/">electrical circuit</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/guide/">guide</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ic-design/">ic design</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/methodologies/">methodologies</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-architecture/">computer architecture</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">computer_science</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/debug/">debug</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/electrical/">electrical</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/electrical-circuit/">electrical circuit</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/guide/">guide</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ic-design/">ic design</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/methodologies/">methodologies</a></li></ul>
     </div>
   </div>
 

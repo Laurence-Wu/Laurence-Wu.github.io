@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>BuzzCar_PCBdesign | Laurence&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <div id="textContainer">
+          <a href="/" id="logo">Laurence&#39;s Blog</a>
+        </div>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/categories">Categories</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-BuzzCar-PCBdesign" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/04/14/BuzzCar-PCBdesign/" class="article-date">
+  <time class="dt-published" datetime="2025-04-15T03:41:11.000Z" itemprop="datePublished">2025-04-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/electrical/">electrical</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      BuzzCar_PCBdesign
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1><span id="designing-a-buzzcar-for-dynamic-control-algorithm-development">Designing a buzzCar for dynamic control algorithm development</span><a href="#designing-a-buzzcar-for-dynamic-control-algorithm-development" class="header-anchor">#</a></h1><div class="toc">
+
+<!-- toc -->
+<ul>
+<li><a href="#ideas-and-block-diagram-for-this-project">Ideas and block diagram for this project</a><ul>
+<li><a href="#design-goals"><strong>Design Goals</strong></a></li>
+<li><a href="#basic-requirements"><strong>Basic Requirements</strong></a></li>
+<li><a href="#expected-features"><strong>Expected Features</strong></a></li>
+<li><a href="#ideal-features"><strong>Ideal Features</strong></a></li>
+<li><a href="#mechanical-design"><strong>Mechanical Design</strong></a></li>
+<li><a href="#power-system-primary-power-2s-lipo"><strong>Power System: Primary Power: 2S LiPo</strong></a></li>
+<li><a href="#power-system-secondary-power">Power System:  Secondary Power</a></li>
+<li><a href="#power-system-microcontroller-integration"><strong>Power System:  Microcontroller Integration</strong></a></li>
+<li><a href="#sensors-lidar-integration"><strong>Sensors: Lidar Integration</strong></a></li>
+<li><a href="#sensors-voltage-monitoring"><strong>Sensors: Voltage Monitoring</strong></a></li>
+<li><a href="#actuators-motor-control"><strong>Actuators: Motor Control</strong></a></li>
+<li><a href="#servo-control"><strong>Servo Control</strong></a></li>
+</ul>
+</li>
+<li><a href="#schematics-design">Schematics design:</a><ul>
+<li><a href="#work-shown">Work shown</a></li>
+<li><a href="#functionality-and-details-explained">functionality and details explained:</a></li>
+</ul>
+</li>
+<li><a href="#1-battery-input-section">1. <strong>Battery Input Section</strong></a><ul>
+<li><a href="#1-1-batt-jst-battery-connector">1.1 BATT_JST (Battery Connector)</a></li>
+<li><a href="#1-2-battery-rail-protections">1.2 Battery Rail &amp; Protections</a></li>
+</ul>
+</li>
+<li><a href="#2-battery-gauging-measurement-ltc2943-or-similar">2. <strong>Battery Gauging / Measurement (LTC2943 or Similar)</strong></a><ul>
+<li><a href="#2-1-battery-gas-gauge-ic-u1">2.1 Battery Gas Gauge IC (U1)</a></li>
+</ul>
+</li>
+<li><a href="#3-dc-dc-converter-buck-regulator">3. <strong>DC-DC Converter (Buck Regulator)</strong></a><ul>
+<li><a href="#3-1-lm2596-lm25576-another-buck-u5">3.1 LM2596 / LM25576 / Another Buck (U5)</a></li>
+<li><a href="#3-2-possible-3-3-v-ldo-not-always-visible-but-often-present">3.2 Possible 3.3 V LDO (Not always visible but often present)</a></li>
+</ul>
+</li>
+<li><a href="#4-voltage-sensing-current-sensing">4. <strong>Voltage Sensing &amp; Current Sensing</strong></a><ul>
+<li><a href="#4-1-voltage-sensing-v-sen">4.1 Voltage Sensing (V_SEN)</a></li>
+<li><a href="#4-2-current-sensor-acs7xx-acs712-or-similar">4.2 Current Sensor (ACS7xx / ACS712 or Similar)</a></li>
+</ul>
+</li>
+<li><a href="#5-microcontroller-mcu">5. <strong>Microcontroller (MCU)</strong></a><ul>
+<li><a href="#5-1-main-processor-u4">5.1 Main Processor (U4)</a></li>
+<li><a href="#5-2-programming-debug-interface">5.2 Programming / Debug Interface</a></li>
+</ul>
+</li>
+<li><a href="#6-environmental-temperature-sensors">6. <strong>Environmental / Temperature Sensors</strong></a><ul>
+<li><a href="#6-1-tsys2101-u2">6.1 TSYS2101 (U2)</a></li>
+<li><a href="#6-2-additional-sensors-emp-thermocouples-etc">6.2 Additional Sensors (EMP, Thermocouples, etc.)</a></li>
+</ul>
+</li>
+<li><a href="#7-system-i2c-configuration">7. <strong>System I²C &amp; Configuration</strong></a><ul>
+<li><a href="#7-1-i2c-bus">7.1 I²C Bus</a></li>
+<li><a href="#7-2-configuration-jumpers-dip-switches">7.2 Configuration Jumpers / DIP Switches</a></li>
+</ul>
+</li>
+<li><a href="#8-power-paths-other-notable-blocks">8. <strong>Power Paths &amp; Other Notable Blocks</strong></a><ul>
+<li><a href="#8-1-usb-power-if-present">8.1 USB_POWER (If Present)</a></li>
+<li><a href="#8-2-charger-circuit-if-on-board">8.2 Charger Circuit (If On-board)</a></li>
+<li><a href="#8-3-level-translators-or-logic-gates">8.3 Level Translators or Logic Gates</a></li>
+</ul>
+</li>
+<li><a href="#9-putting-it-all-together">9. <strong>Putting It All Together</strong></a></li>
+<li><a href="#10-summary">10. <strong>Summary</strong></a></li>
+</ul>
+<!-- tocstop -->
+</div>
+
+<h2><span id="ideas-and-block-diagram-for-this-project">Ideas and block diagram for this project</span><a href="#ideas-and-block-diagram-for-this-project" class="header-anchor">#</a></h2><p><img src="/images/BuzzCar_PCBdesign/blockDiagram.png" alt="Block diagram for buzzcar design" width="300" height="250"></p>
+<h3><span id="design-goals"><strong>Design Goals</strong></span><a href="#design-goals" class="header-anchor">#</a></h3><ul>
+<li>Create a fully integrated PCB for autonomous vehicle control</li>
+<li>Support Arduino Nano 33 IoT, four Lidar sensors, motor controller, and power management</li>
+<li>Ensure compatibility with existing chassis mounting points</li>
+<li>Maintain proper clearance for wheels, suspension, and drivetrain components</li>
+</ul>
+<h3><span id="basic-requirements"><strong>Basic Requirements</strong></span><a href="#basic-requirements" class="header-anchor">#</a></h3><ul>
+<li>2S LiPo battery power support</li>
+<li>Arduino Nano 33 IoT socket</li>
+<li>Interfaces for four TF-mini-S Lidar sensors</li>
+<li>Hobby servo control</li>
+<li>130-size brushed DC motor control</li>
+<li>2-layer PCB design</li>
+<li>Compliance with Seeed Studio DRC design rules</li>
+</ul>
+<h3><span id="expected-features"><strong>Expected Features</strong></span><a href="#expected-features" class="header-anchor">#</a></h3><ul>
+<li>Battery voltage monitoring (0.05V resolution, &gt;10Hz sampling)</li>
+<li>Alternative wired power input</li>
+<li>Maximum dimensions: 100mm × 100mm</li>
+</ul>
+<h3><span id="ideal-features"><strong>Ideal Features</strong></span><a href="#ideal-features" class="header-anchor">#</a></h3><ul>
+<li>Balanced battery charging capability</li>
+<li>Designed using Fusion 360/Eagle PCB</li>
+<li>Prototype area for future expansion</li>
+</ul>
+<h3><span id="mechanical-design"><strong>Mechanical Design</strong></span><a href="#mechanical-design" class="header-anchor">#</a></h3><ul>
+<li>Replaces carbon fiber top deck of Atomic AMZ RC chassis</li>
+<li>Maximum dimensions: 100mm × 100mm</li>
+<li>Must maintain clearance for wheel steering and suspension travel</li>
+<li>Reference previous PCB design file or direct chassis measurements</li>
+</ul>
+<h3><span id="power-system-primary-power-2s-lipo"><strong>Power System: Primary Power: 2S LiPo</strong></span><a href="#power-system-primary-power-2s-lipo" class="header-anchor">#</a></h3><ul>
+<li>Battery specifications: 300-1000mAh, 6.5-8.4V operating range</li>
+<li>Connector: JST-PH 3-pin 2mm (specified polarity required)</li>
+<li>Voltage monitoring circuit with 0.05V resolution, &gt;10Hz sampling</li>
+<li>Data accessibility via Analog GPIO or SPI (avoid I2C)</li>
+</ul>
+<h3><span id="power-system-secondary-power">Power System:  Secondary Power</span><a href="#power-system-secondary-power" class="header-anchor">#</a></h3><ul>
+<li>DC input for extended operation/debugging</li>
+<li>Hot-swappable between battery and DC input</li>
+<li>Battery charging while connected to DC power</li>
+<li>Status indicator LED preferred</li>
+</ul>
+<h3><span id="power-system-microcontroller-integration"><strong>Power System:  Microcontroller Integration</strong></span><a href="#power-system-microcontroller-integration" class="header-anchor">#</a></h3><ul>
+<li>Socket for Arduino Nano 33 IoT</li>
+<li>Direct battery power connection possible via Arduino’s internal LDO</li>
+<li>Alternative 3.3V power option</li>
+<li>Required I/O routing for sensors and actuators</li>
+<li>3.3V TTL logic level (NOT 5V tolerant)</li>
+<li>EMI considerations for u-blox WiFi chip proximity</li>
+</ul>
+<h3><span id="sensors-lidar-integration"><strong>Sensors:  Lidar Integration</strong></span><a href="#sensors-lidar-integration" class="header-anchor">#</a></h3><ul>
+<li>Four Benewake TF-Mini S Lidar modules</li>
+<li>Mounting positions: front, back, left, right</li>
+<li>Power requirements: 5V, 200mA peak per sensor</li>
+<li>Connector: JST-GH1.25-4P</li>
+<li>Shared I2C communication bus</li>
+<li>Mounting brackets/holes for sensor installation</li>
+</ul>
+<h3><span id="sensors-voltage-monitoring"><strong>Sensors: Voltage Monitoring</strong></span><a href="#sensors-voltage-monitoring" class="header-anchor">#</a></h3><ul>
+<li>Battery voltage sensing circuit</li>
+<li>Optional current sensing for motor control</li>
+</ul>
+<h3><span id="actuators-motor-control"><strong>Actuators: Motor Control</strong></span><a href="#actuators-motor-control" class="header-anchor">#</a></h3><ul>
+<li>TB67H451FNG motor driver IC</li>
+<li>3A current limit for 130-size brushed motor</li>
+<li>Current limiting via RS pin and sensing resistor</li>
+<li>Arduino connections:<ul>
+<li>IN1: D5 (D_PWM_FWD)</li>
+<li>IN2: D6 (D_PWM_REV)</li>
+</ul>
+</li>
+<li>Motor output pads capable of 3A current</li>
+</ul>
+<h3><span id="servo-control"><strong>Servo Control</strong></span><a href="#servo-control" class="header-anchor">#</a></h3><ul>
+<li>Micro hobby servo support</li>
+<li>JST-ZH 1.5mm 3-pin connector</li>
+<li>Signal connection to Arduino D9</li>
+<li>Direct battery voltage for servo power</li>
+</ul>
+<h2><span id="schematics-design">Schematics design:</span><a href="#schematics-design" class="header-anchor">#</a></h2><h3><span id="work-shown">Work shown</span><a href="#work-shown" class="header-anchor">#</a></h3><p><img src="/images/BuzzCar_PCBdesign/DesignSchematics.png" alt="PCB schematics" width="1200" height="600"></p>
+<h3><span id="functionality-and-details-explained">functionality and details explained:</span><a href="#functionality-and-details-explained" class="header-anchor">#</a></h3><h2><span id="1-battery-input-section">1. <strong>Battery Input Section</strong></span><a href="#1-battery-input-section" class="header-anchor">#</a></h2><h3><span id="1-1-batt-jst-battery-connector">1.1 BATT_JST (Battery Connector)</span><a href="#1-1-batt-jst-battery-connector" class="header-anchor">#</a></h3><ul>
+<li><strong>What it is</strong>: A JST (or similar) connector where a single-cell Li-ion or LiPo battery is plugged in.</li>
+<li><strong>Function</strong>: Provides the main power source for the entire board. The battery voltage might range roughly from 3.0–4.2 V (typical for a single Li-ion cell) or another range if configured differently.</li>
+</ul>
+<h3><span id="1-2-battery-rail-amp-protections">1.2 Battery Rail &amp; Protections</span><a href="#1-2-battery-rail-amp-protections" class="header-anchor">#</a></h3><ul>
+<li><strong>BATT_RAIL</strong>: The net label that refers to the raw battery voltage.</li>
+<li><strong>MOSFET / Ideal Diode / Protection</strong> (if present): Often, a P-channel MOSFET or an ideal-diode controller (like certain Linear Technology “LTC” parts) is added to protect from reverse polarity or to control current flow.</li>
+<li><strong>Sense Resistor (R_SENSE)</strong>: A small-value resistor in series with the battery rail so that current can be measured. This is used by the coulomb-counter IC or by a dedicated current sensor.</li>
+</ul>
+<hr>
+<h2><span id="2-battery-gauging-measurement-ltc2943-or-similar">2. <strong>Battery Gauging / Measurement (LTC2943 or Similar)</strong></span><a href="#2-battery-gauging-measurement-ltc2943-or-similar" class="header-anchor">#</a></h2><h3><span id="2-1-battery-gas-gauge-ic-u1">2.1 Battery Gas Gauge IC (U1)</span><a href="#2-1-battery-gas-gauge-ic-u1" class="header-anchor">#</a></h3><ul>
+<li><strong>Likely Part</strong>: LTC2943 (part label suggests something like LTC2943MBTRPBF).</li>
+<li><strong>Function</strong>:<ol>
+<li><strong>Voltage Measurement</strong>: Monitors the battery voltage through an internal ADC.</li>
+<li><strong>Current Measurement</strong>: Measures voltage drop across the sense resistor (R_SENSE) to calculate current in/out of the battery.</li>
+<li><strong>Coulomb Counting</strong>: Integrates current over time to keep track of battery charge/discharge.</li>
+<li><strong>I²C Interface</strong>: Communicates measurements to the microcontroller.</li>
+</ol>
+</li>
+<li><strong>How it fits in</strong>: The LTC2943 is powered by the battery line itself, and its SCL/SDA pins connect to the MCU’s I²C bus. Any measured data about battery capacity, voltage, and current is periodically read by the main microcontroller.</li>
+</ul>
+<hr>
+<h2><span id="3-dc-dc-converter-buck-regulator">3. <strong>DC-DC Converter (Buck Regulator)</strong></span><a href="#3-dc-dc-converter-buck-regulator" class="header-anchor">#</a></h2><h3><span id="3-1-lm2596-lm25576-another-buck-u5">3.1 LM2596 / LM25576 / Another Buck (U5)</span><a href="#3-1-lm2596-lm25576-another-buck-u5" class="header-anchor">#</a></h3><ul>
+<li><strong>What it is</strong>: A switching regulator that steps the battery voltage (which varies with battery level) down to a stable 5 V or another regulated rail.</li>
+<li><strong>Function</strong>:<ol>
+<li><strong>High-Efficiency Power</strong>: Switching regulators waste less power compared to a linear regulator, crucial for battery operation.</li>
+<li><strong>Provides 5 V</strong>: Needed if certain parts on the board (sensors, display drivers, or external modules) require 5 V.</li>
+</ol>
+</li>
+<li><strong>Key Connections</strong>:<ul>
+<li><strong>Input</strong>: BATT_RAIL (or “VIN” from battery)</li>
+<li><strong>Output</strong>: 5 V supply net (often labeled “5V_BUCK” or “+5V”)</li>
+<li><strong>Feedback Resistive Divider</strong>: Sets the output voltage.</li>
+</ul>
+</li>
+</ul>
+<h3><span id="3-2-possible-3-3-v-ldo-not-always-visible-but-often-present">3.2 Possible 3.3 V LDO (Not always visible but often present)</span><a href="#3-2-possible-3-3-v-ldo-not-always-visible-but-often-present" class="header-anchor">#</a></h3><ul>
+<li>If any 3.3 V logic devices are on the board, you might see a linear regulator (e.g., an AMS1117-3.3 or an LP2985) taking the 5 V output from the buck regulator down to 3.3 V. This is typical in designs that must supply both 3.3 V and 5 V components.</li>
+</ul>
+<hr>
+<h2><span id="4-voltage-sensing-amp-current-sensing">4. <strong>Voltage Sensing &amp; Current Sensing</strong></span><a href="#4-voltage-sensing-amp-current-sensing" class="header-anchor">#</a></h2><h3><span id="4-1-voltage-sensing-v-sen">4.1 Voltage Sensing (V_SEN)</span><a href="#4-1-voltage-sensing-v-sen" class="header-anchor">#</a></h3><ul>
+<li><strong>What it is</strong>: A voltage divider feeding into an ADC input of the microcontroller.</li>
+<li><strong>Function</strong>: Allows the MCU to measure the raw battery voltage directly (or the 5 V rail) by scaling it down to a safe ADC range.</li>
+<li><strong>Why needed</strong>:<ol>
+<li><strong>Monitor Battery Level</strong>: The MCU can perform battery level checks.</li>
+<li><strong>Monitor 5 V</strong>: Verify the buck regulator is functioning properly.</li>
+</ol>
+</li>
+</ul>
+<h3><span id="4-2-current-sensor-acs7xx-acs712-or-similar">4.2 Current Sensor (ACS7xx / ACS712 or Similar)</span><a href="#4-2-current-sensor-acs7xx-acs712-or-similar" class="header-anchor">#</a></h3><ul>
+<li><strong>What it is</strong>: A Hall effect-based current sensor module (e.g., ACS712 or ACS75x).</li>
+<li><strong>Function</strong>: Measures current flowing through its internal conductor, producing an analog voltage proportional to the current.</li>
+<li><strong>Connection</strong>:<ol>
+<li><strong>In series with the load</strong>: The battery rail or 5 V supply passes through it.</li>
+<li><strong>Output</strong>: Analog voltage to an MCU ADC pin labeled something like “I_SEN.”</li>
+</ol>
+</li>
+<li><strong>Why needed</strong>:<ul>
+<li>Additional load current monitoring separate from the battery coulomb counter.</li>
+<li>Or to measure consumption of different subcircuits if the LTC2943 is measuring only the battery as a whole.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2><span id="5-microcontroller-mcu">5. <strong>Microcontroller (MCU)</strong></span><a href="#5-microcontroller-mcu" class="header-anchor">#</a></h2><h3><span id="5-1-main-processor-u4">5.1 Main Processor (U4)</span><a href="#5-1-main-processor-u4" class="header-anchor">#</a></h3><ul>
+<li><strong>Possible Part</strong>: An ARM Cortex-M0/M4 (e.g., ATSAMD21), an ESP-type chip, or another micro with an I²C bus. The schematic pin labels (PBxx, SWDCLK, SWDIO, BOOT, EN, etc.) suggest an ARM-based microcontroller with SWD programming.</li>
+<li><strong>Function</strong>:<ol>
+<li><strong>Reads Sensor Data</strong>: Collects battery parameters from the LTC2943 via I²C, current data from ACS7xx, temperature data from the TSYS2101, etc.</li>
+<li><strong>Controls the System</strong>: Can enable/disable power rails, manage low-power states, and communicate via serial or USB.</li>
+<li><strong>Firmware Logic</strong>: Runs any user application, logging data, controlling outputs, etc.</li>
+</ol>
+</li>
+</ul>
+<h3><span id="5-2-programming-debug-interface">5.2 Programming / Debug Interface</span><a href="#5-2-programming-debug-interface" class="header-anchor">#</a></h3><ul>
+<li><strong>SWD / JTAG Header</strong>: For programming and debugging the MCU firmware.</li>
+<li><strong>Boot/Reset Circuits</strong>: May include pushbuttons or jumpers to place the MCU into bootloader mode.</li>
+</ul>
+<hr>
+<h2><span id="6-environmental-temperature-sensors">6. <strong>Environmental / Temperature Sensors</strong></span><a href="#6-environmental-temperature-sensors" class="header-anchor">#</a></h2><h3><span id="6-1-tsys2101-u2">6.1 TSYS2101 (U2)</span><a href="#6-1-tsys2101-u2" class="header-anchor">#</a></h3><ul>
+<li><strong>What it is</strong>: A high-precision temperature sensor from TE Connectivity, typically with an I²C interface.</li>
+<li><strong>Function</strong>: Continuously reads the ambient temperature; the MCU polls it via I²C.</li>
+<li><strong>Why it’s used</strong>: Good for accurate temperature measurements if the application needs precise sensing (e.g., data logging, environmental monitoring).</li>
+</ul>
+<h3><span id="6-2-additional-sensors-emp-thermocouples-etc">6.2 Additional Sensors (EMP, Thermocouples, etc.)</span><a href="#6-2-additional-sensors-emp-thermocouples-etc" class="header-anchor">#</a></h3><ul>
+<li><strong>EMP or “SM304X05-P6”</strong>: Could be another sensor or sensor amplifier for temperature/humidity/pressure.</li>
+<li><strong>Thermocouple or Thermistor</strong>: If present, the schematic might show an amplifier or ADC front end.</li>
+<li><strong>DIP Switches S2–S5</strong>: Sometimes used to configure which sensors are active or to set I²C addresses or other configuration bits.</li>
+</ul>
+<hr>
+<h2><span id="7-system-i2c-amp-configuration">7. <strong>System I²C &amp; Configuration</strong></span><a href="#7-system-i2c-amp-configuration" class="header-anchor">#</a></h2><h3><span id="7-1-i2c-bus">7.1 I²C Bus</span><a href="#7-1-i2c-bus" class="header-anchor">#</a></h3><ul>
+<li><strong>SCL, SDA</strong>: Shared among the gas gauge (LTC2943), the temperature sensor (TSYS2101), and potentially other sensors.</li>
+<li><strong>Pull-up Resistors</strong>: Typically you will see 4.7 kΩ or 10 kΩ pull-ups to 3.3 V or 5 V (depending on logic level).</li>
+</ul>
+<h3><span id="7-2-configuration-jumpers-dip-switches">7.2 Configuration Jumpers / DIP Switches</span><a href="#7-2-configuration-jumpers-dip-switches" class="header-anchor">#</a></h3><ul>
+<li><strong>What they are</strong>: Solder jumpers (SJx) or DIP switches (Sx) that let you route signals or change addresses.</li>
+<li><strong>Function</strong>:<ol>
+<li><strong>Enable/Disable Features</strong>: For example, to cut power to a sensor or to bypass the battery monitor.</li>
+<li><strong>Select I²C Address</strong>: For devices that offer multiple address pins.</li>
+<li><strong>Boot Mode Configuration</strong>: Possibly used for microcontroller bootloader settings.</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h2><span id="8-power-paths-amp-other-notable-blocks">8. <strong>Power Paths &amp; Other Notable Blocks</strong></span><a href="#8-power-paths-amp-other-notable-blocks" class="header-anchor">#</a></h2><h3><span id="8-1-usb-power-if-present">8.1 USB_POWER (If Present)</span><a href="#8-1-usb-power-if-present" class="header-anchor">#</a></h3><ul>
+<li>Some boards also allow USB input. If so, you may see a diode or power multiplexer that automatically switches from USB 5 V to battery if USB is unplugged.</li>
+<li>The schematic might show a USB connector (Micro-USB/Type-C) with data lines going to the MCU for serial communication or programming.</li>
+</ul>
+<h3><span id="8-2-charger-circuit-if-on-board">8.2 Charger Circuit (If On-board)</span><a href="#8-2-charger-circuit-if-on-board" class="header-anchor">#</a></h3><ul>
+<li>If the design includes a dedicated Li-ion charger IC (e.g., MCP73831, BQ24075, etc.), you would see it interfacing between the USB 5 V and the battery connector.</li>
+<li>If the design expects an external charger, you won’t see these blocks, and the battery rail is used directly.</li>
+</ul>
+<h3><span id="8-3-level-translators-or-logic-gates">8.3 Level Translators or Logic Gates</span><a href="#8-3-level-translators-or-logic-gates" class="header-anchor">#</a></h3><ul>
+<li>If any 5 V signals must interface with a 3.3 V MCU, there may be level shifters or FET-based translators.</li>
+</ul>
+<hr>
+<h2><span id="9-putting-it-all-together">9. <strong>Putting It All Together</strong></span><a href="#9-putting-it-all-together" class="header-anchor">#</a></h2><ol>
+<li><strong>Power Flow</strong>:<ul>
+<li>The Li-ion battery plugs in at <strong>BATT_JST</strong>.</li>
+<li>The raw battery voltage is fed into:<ul>
+<li><strong>LTC2943</strong> (gas gauge) to measure battery stats.</li>
+<li><strong>Buck Converter</strong> (LM2596 or similar) to generate 5 V for the rest of the board.</li>
+</ul>
+</li>
+<li>A secondary regulator (if present) generates 3.3 V from 5 V for the MCU and sensors.</li>
+</ul>
+</li>
+<li><strong>Measurement &amp; Control</strong>:<ul>
+<li>The <strong>LTC2943</strong> monitors voltage/current on the battery rail and sends data to the MCU over I²C.</li>
+<li>The <strong>ACS7xx</strong> (if present) measures load current or an additional current path for more granular control.</li>
+<li>The <strong>TSYS2101</strong> (and/or other sensors) measure environmental parameters.</li>
+<li>The <strong>MCU</strong> reads all sensor values and can make decisions (e.g., low-battery cutoff, data logging, etc.).</li>
+</ul>
+</li>
+<li><strong>User / System Interface</strong>:<ul>
+<li>The <strong>DIP switches</strong> or <strong>jumpers</strong> let you enable/disable certain circuits or configure addresses.</li>
+<li>The <strong>SWD</strong> header (or similar) is used to program or debug the MCU.</li>
+</ul>
+</li>
+<li><strong>Overall Purpose</strong>:<ul>
+<li>A battery-powered system that needs to monitor its own power usage (both voltage and current) and track battery health (via coulomb counting).</li>
+<li>Likely used in an application where accurate battery life predictions and environmental data are important (e.g., remote sensors, IoT, or data loggers).</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2><span id="10-summary">10. <strong>Summary</strong></span><a href="#10-summary" class="header-anchor">#</a></h2><ul>
+<li><strong>Battery Connector &amp; Gas Gauge</strong>: The battery is connected to the JST port. The LTC2943 tracks voltage, current, and calculates remaining charge (coulomb counting).</li>
+<li><strong>Buck Converter</strong>: Steps the raw battery voltage to 5 V for powering sensors, the microcontroller, or other subsystems.</li>
+<li><strong>Current Sensor</strong>: A Hall effect-based device (e.g., ACS712) measures current flowing to or from a particular circuit branch, giving the MCU another read on power usage.</li>
+<li><strong>Microcontroller</strong>: Serves as the brain—collecting sensor data, controlling power states, possibly communicating over USB or wireless.</li>
+<li><strong>Sensors</strong>: A variety of temperature or environmental sensors (e.g., TSYS2101) gather external data.</li>
+<li><strong>Configuration &amp; Debug</strong>: DIP switches, solder jumpers, and SWD programming headers let developers set up, tune, or troubleshoot the device.</li>
+</ul>
+<p>This arrangement makes for a robust battery-powered design: it has intelligent battery monitoring (gas gauging), regulated power rails, multiple sensor inputs, and a programmable microcontroller that can make decisions or log data as needed.</p>
+
+      
+    </div>
+    <!-- <footer class="article-footer">
+      <a data-url="https://laurence-wu.github.io/2025/04/14/BuzzCar-PCBdesign/" data-id="cm9iqwdfp00017u38190e6v6k" data-title="BuzzCar_PCBdesign" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PCB-design/" rel="tag">PCB design</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/layout/" rel="tag">layout</a></li></ul>
+
+    </footer> -->
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2025/04/07/Introduction-to-Sorting/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Introduction to Sorting</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  
+    
+<div class="widget-wrap">
+  <h3 class="widget-title">Search</h3>
+  <div class="widget">
+    <div class="form-group">
+      <input
+        type="text"
+        id="local-search-input"
+        name="q"
+        results="0"
+        placeholder="     Search"
+        class="st-default-search-input"
+        autocomplete="on"
+      />
+    </div>
+  </div>
+</div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-C/" rel="tag">C&#x2F;C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LDO/" rel="tag">LDO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Layout/" rel="tag">Layout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PCB-design/" rel="tag">PCB design</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithm/" rel="tag">algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithms/" rel="tag">algorithms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-c/" rel="tag">c&#x2F;c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/control-system/" rel="tag">control system</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/experiments/" rel="tag">experiments</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/guide/" rel="tag">guide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/layout/" rel="tag">layout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markup/" rel="tag">markup</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pattern-matching/" rel="tag">pattern_matching</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sorting/" rel="tag">sorting</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stm/" rel="tag">stm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web-development/" rel="tag">web development</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/04/14/BuzzCar-PCBdesign/">BuzzCar_PCBdesign</a>
+          </li>
+        
+          <li>
+            <a href="/2025/04/07/Introduction-to-Sorting/">Introduction to Sorting</a>
+          </li>
+        
+          <li>
+            <a href="/2025/04/07/Introduction-to-C/">Memory Model for C</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/31/PatternMatching/">Pattern Matching</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/29/Introduction-To-LDO/">Introduction To LDO</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-architecture/">computer architecture</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">computer_science</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/debug/">debug</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/electrical/">electrical</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/electrical-circuit/">electrical circuit</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/guide/">guide</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ic-design/">ic design</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/methodologies/">methodologies</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">April 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">March 2025</a></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2025 By Laurence Wu<br>
+      Driven - <a href="https://hexo.io/" target="_blank">Hexo</a> | Theme - <a href="https://github.com/autoload/hexo-theme-auto" target="_blank">Auto</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Swiftype! https://swiftype.com/-->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','QsbnF25r7YG4QNmK75ZS','2.0.0');
+</script>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+    <script src='https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js'></script>
+    <script>
+      if (window.mermaid) {
+        mermaid.initialize({theme: 'forest'});
+      }
+    </script>
+  
+
+  </div>
+</body>
+</html>

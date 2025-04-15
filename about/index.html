@@ -85,6 +85,13 @@
       border-radius: 9999px;
       margin: 0.25rem;
       font-size: 0.875rem;
+      transition: all 0.3s ease;
+    }
+    
+    .skill-badge:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 6px rgba(43, 108, 176, 0.15);
+      background: #bee3f8;
     }
     
     .involvement-item {
@@ -94,11 +101,207 @@
       margin: 1rem 0;
       border: 1px solid #e2e8f0;
     }
+    
+    /* New styles for personal habits section */
+    .personal-section {
+      position: relative;
+      background: linear-gradient(to right, #f0f9ff, #e6f7ff);
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+      margin: 1.5rem 0;
+      border: none;
+      box-shadow: 0 4px 6px rgba(66, 153, 225, 0.1);
+      transition: all 0.4s ease;
+      overflow: hidden;
+    }
+    
+    .personal-section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px rgba(66, 153, 225, 0.2);
+    }
+    
+    .personal-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(to bottom, #4299e1, #63b3ed);
+      border-radius: 4px 0 0 4px;
+    }
+    
+    .personal-section strong {
+      color: #2c5282;
+      font-size: 1.1rem;
+      display: block;
+      margin-bottom: 0.75rem;
+      position: relative;
+    }
+    
+    .personal-section p {
+      line-height: 1.6;
+      color: #4a5568;
+      font-size: 1rem;
+      margin-top: 1rem;
+      text-align: justify;
+    }
+    
+    .sport-badge {
+      display: inline-block;
+      background: linear-gradient(120deg, #4299e1, #63b3ed);
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 9999px;
+      margin: 0.35rem;
+      font-size: 0.875rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 4px rgba(43, 108, 176, 0.2);
+    }
+    
+    .sport-badge:hover {
+      transform: scale(1.05) rotate(2deg);
+      box-shadow: 0 4px 8px rgba(43, 108, 176, 0.3);
+    }
+    
+    @keyframes pulse {
+      0% { opacity: 0.9; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.05); }
+      100% { opacity: 0.9; transform: scale(1); }
+    }
+    
+    .hobby-icon {
+      display: inline-block;
+      margin-right: 0.5rem;
+      font-size: 1.6em;
+      vertical-align: middle;
+      animation: pulse 2s infinite ease-in-out;
+    }
+    
+    .personal-header {
+      position: relative;
+      margin: 2rem 0 1rem;
+      padding-left: 1rem;
+      border-left: 4px solid #63b3ed;
+      color: #2b6cb0;
+      font-size: 1.35rem;
+      text-shadow: 1px 1px 1px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+    }
+    
+    .personal-header:hover {
+      transform: translateX(5px);
+    }
+    
+    /* Table of Contents Styling */
+    .toc-container {
+      background: linear-gradient(to right bottom, #f8fafc, #f0f9ff);
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin: 2rem 0;
+      box-shadow: 0 4px 6px rgba(66, 153, 225, 0.1);
+      position: relative;
+      overflow: hidden;
+      border-left: 4px solid #4299e1;
+    }
+    
+    .toc-header {
+      color: #2c5282;
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+    }
+    
+    .toc-header svg {
+      margin-right: 0.5rem;
+      animation: pulse 2s infinite ease-in-out;
+    }
+    
+    .toc-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+    
+    .toc-item {
+      transition: all 0.3s ease;
+    }
+    
+    .toc-item a {
+      display: flex;
+      align-items: center;
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      color: #2d3748;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    .toc-item a:hover {
+      background: rgba(66, 153, 225, 0.1);
+      transform: translateX(5px);
+      color: #2b6cb0;
+    }
+    
+    .toc-icon {
+      margin-right: 0.5rem;
+      color: #4299e1;
+      font-size: 1rem;
+    }
   </style>
   
     <h3>I'm Xiaoyou Wu, a first-year Computer Engineering student at Georgia Institute of Technology . With a 4.00 GPA and active involvement in cutting-edge projects, I bridge theoretical knowledge with practical implementation in embedded systems and full-stack development.</h3>
   
-    <h3>  
+    <div class="toc-container">
+      <div class="toc-header">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#4299e1" viewBox="0 0 16 16">
+          <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
+        </svg>
+        Page Contents
+      </div>
+      <div class="toc-links">
+        <div class="toc-item">
+          <a href="#technical-competencies">
+            <span class="toc-icon">💻</span>
+            Technical Competencies
+          </a>
+        </div>
+        <div class="toc-item">
+          <a href="#engineering-initiatives">
+            <span class="toc-icon">🔬</span>
+            Engineering Initiatives
+          </a>
+        </div>
+        <div class="toc-item">
+          <a href="#career-goals">
+            <span class="toc-icon">🚀</span>
+            Career Goals
+          </a>
+        </div>
+        <div class="toc-item">
+          <a href="#personal-habits">
+            <span class="toc-icon">⏰</span>
+            Personal Habits
+          </a>
+        </div>
+        <div class="toc-item">
+          <a href="#sports">
+            <span class="toc-icon">🏸</span>
+            Favorite Sports
+          </a>
+        </div>
+        <div class="toc-item">
+          <a href="#resume">
+            <span class="toc-icon">📄</span>
+            Resume
+          </a>
+        </div>
+      </div>
+    </div>
+  
+    <h3 id="technical-competencies">  
       Core technical competencies:
       <div class="skill-section">
         <span class="skill-badge">Embedded C/C++</span>
@@ -112,7 +315,7 @@
       </div>
     </h3>
   
-    <h3>  
+    <h3 id="engineering-initiatives">  
       Current engineering initiatives:
       <div class="involvement-item">
         <strong>Soft Robotics Research:</strong> Developing magnetic feedback control systems for medical robotics applications using VESC motors and computer vision tracking.
@@ -127,14 +330,33 @@
       </div>
     </h3>
   
-    <h3>  
-      Let's connect about embedded systems challenges, rocket avionics architectures, or full-stack development patterns. Reach me at <a href="mailto:xwu488@gatech.edu">xwu488@gatech.edu</a> for collaborations or technical discussions.
+    <h3 id="career-goals">  
+      I want to be a hardware engineer and full-stack software engineer right now. Within 2-3 years, I would build my career towards embedded system engineer and verification engineer. Reach me at <a href="mailto:xwu488@gatech.edu">xwu488@gatech.edu</a> for collaborations or technical discussions.
     </h3>
 
-    <h3> This is my personal resume: </h3>
+    <h3 id="personal-habits" class="personal-header">Personal Habits & Interests:</h3>
+    <div class="personal-section">
+      <strong><span class="hobby-icon">⏰</span> Daily Routines:</strong> I'm an early riser who enjoys morning pranayama(An ancient Indian breathing technique).
+      <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/ho6vYH9Ow42dc0T1_qwdbg">check out my recent story</a>
+    </div>
+    
+    <div class="personal-section">
+      <strong><span class="hobby-icon">🏸</span> Favorite Sports:</strong> 
+      <div id="sports" class="skill-section">
+        <span class="sport-badge">Badminton</span>
+        <span class="sport-badge">Gym</span>
+        <span class="sport-badge">Running</span>
+      </div>
+      <p>I play badminton regularly with my friends: it's a truly fascinating sport full of strategies and body-control techniques. What I love most about badminton is the perfect balance between power and precision, speed and control. During intense rallies, you learn to harness your energy efficiently—knowing when to deliver a powerful smash and when to execute a delicate drop shot. This balance of opposing forces reminds me of the Yin and Yang philosophy, where complementary energies create harmony. Through badminton, I've developed better reflexes, strategic thinking, and the ability to anticipate my opponent's movements—skills that translate surprisingly well to engineering problems.</p>
+      <p>
+        Beyond sports, I immerse myself in the world of magic-realism literature, particularly works by Gabriel García Márquez and Haruki Murakami where reality blends seamlessly with fantastical elements. These narratives inspire my own creative writing, where I explore the boundaries between technology and human experience. I'm equally drawn to Neo-impressionism artwork, especially the pointillist techniques of Georges Seurat and Paul Signac. The way these artists construct coherent images from thousands of distinct color points mirrors how complex systems emerge from simple components—a parallel to my work in computer engineering. At my core, I believe that while rational thinking drives technological innovation, it's our emotional intelligence and capacity for empathy that ultimately guide how we apply these technologies. This perspective shapes my approach to engineering solutions that serve human needs rather than simply advancing technology for its own sake.
+      </p>
+    </div>
+
+    <h3 id="resume"> This is my personal resume: </h3>
     <iframe src="/Assests/resume.pdf" width="100%" height="600px" style="border: none;"></iframe>
   </div>
-  </section>
+</section>
         <aside id="sidebar">
   
     
@@ -161,7 +383,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-C/" rel="tag">C&#x2F;C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LDO/" rel="tag">LDO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Layout/" rel="tag">Layout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PCB-design/" rel="tag">PCB design</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithms/" rel="tag">algorithms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/control-system/" rel="tag">control system</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/experiments/" rel="tag">experiments</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/guide/" rel="tag">guide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markup/" rel="tag">markup</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pattern-matching/" rel="tag">pattern_matching</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stm/" rel="tag">stm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web-development/" rel="tag">web development</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-C/" rel="tag">C&#x2F;C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LDO/" rel="tag">LDO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Layout/" rel="tag">Layout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PCB-design/" rel="tag">PCB design</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithm/" rel="tag">algorithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithms/" rel="tag">algorithms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-c/" rel="tag">c&#x2F;c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/control-system/" rel="tag">control system</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/experiments/" rel="tag">experiments</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/guide/" rel="tag">guide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/layout/" rel="tag">layout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markup/" rel="tag">markup</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pattern-matching/" rel="tag">pattern_matching</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sorting/" rel="tag">sorting</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stm/" rel="tag">stm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web-development/" rel="tag">web development</a></li></ul>
     </div>
   </div>
 
@@ -174,7 +396,15 @@
       <ul>
         
           <li>
-            <a href="/2025/04/07/Introduction-to-C/">Introduction_to_C</a>
+            <a href="/2025/04/14/BuzzCar-PCBdesign/">BuzzCar_PCBdesign</a>
+          </li>
+        
+          <li>
+            <a href="/2025/04/07/Introduction-to-Sorting/">Introduction to Sorting</a>
+          </li>
+        
+          <li>
+            <a href="/2025/04/07/Introduction-to-C/">Memory Model for C</a>
           </li>
         
           <li>
@@ -183,14 +413,6 @@
         
           <li>
             <a href="/2025/03/29/Introduction-To-LDO/">Introduction To LDO</a>
-          </li>
-        
-          <li>
-            <a href="/2025/03/26/How-does-flyback-diode-work/">How Does Flyback Diode Work</a>
-          </li>
-        
-          <li>
-            <a href="/2025/03/25/STM32MP157-guide/">STM32MP157 guide</a>
           </li>
         
       </ul>
@@ -202,7 +424,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-architecture/">computer architecture</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">computer_science</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/debug/">debug</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/electrical-circuit/">electrical circuit</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/guide/">guide</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ic-design/">ic design</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/methodologies/">methodologies</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/computer-architecture/">computer architecture</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/computer-science/">computer_science</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/debug/">debug</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/electrical/">electrical</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/electrical-circuit/">electrical circuit</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/guide/">guide</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ic-design/">ic design</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/methodologies/">methodologies</a></li></ul>
     </div>
   </div>
 
